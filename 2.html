@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南京理工大学张静课题组 | 首页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts-d-gstatic-d-com-s-gmn.tuangouai.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        /* 自定义样式 */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .page-content {
+            display: none;
+        }
+        .page-content.active {
+            display: block;
+        }
+        .nav-link.active {
+            color: #3b82f6; /* 蓝色 */
+            font-weight: 600;
+        }
+        .prose h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+        }
+        .prose h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+        }
+        #lab-banner {
+            position: relative;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            align-items: center;
+            border-radius: 0.5rem 0.5rem 0 0;
+            padding: 0 2rem;
+        }
+        .banner-title {
+            text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .swiper {
+            width: 100%;
+            height: 500px;
+        }
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+            width: 15%;
+            height: 100%;
+            top: 0;
+            margin-top: 0;
+            background-image: none !important;
+            color: transparent !important;
+        }
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+
+        <div class="mt-6 shadow-md rounded-lg">
+            <div id="lab-banner">
+                </div>
+
+            <header class="flex justify-between items-center py-4 px-4 bg-white sticky top-0 z-10 rounded-b-lg border-x border-b border-gray-200">
+                <div id="lab-name-header" class="text-xl font-bold text-gray-900 md:hidden">
+                     </div>
+                <nav id="main-nav" class="hidden md:flex items-center space-x-8 w-full justify-center">
+                    </nav>
+                <div class="md:hidden ml-auto">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </header>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden py-4 border-b border-gray-200 bg-white">
+            </div>
+
+
+        <main id="main-content" class="py-8 md:py-12">
+            </main>
+
+        <footer class="text-center py-6 border-t border-gray-200 text-gray-500 text-sm">
+            <p>&copy; <span id="current-year"></span> <span id="lab-name-footer"></span>. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+    
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        // ===================================================================================
+        // ============================ 网站内容数据模块 =====================================
+        // ===================================================================================
+        // **说明**: 未来所有内容更新,如添加成员、项目、论文等,都请在此处修改。
+        // 您只需仿照现有格式,添加或修改JavaScript对象即可,无需改动上方的HTML代码。
+        // ===================================================================================
+
+        const siteData = {
+            // 网站基本信息
+            labName: "南京理工大学张静课题组",
+            labNameEn: "Prof. Jing Zhang's Group @ NJUST",
+            bannerImage: "PIC/捕获1.PNG",
+            bannerStyle: {
+                justify: 'justify-start', 
+                textAlign: 'text-left', 
+                padding: 'pl-8 md:pl-16 lg:pl-32' 
+            },
+            contact: {
+                address: "江苏省江阴市临港开发区福星路8号（南京理工大学江阴校区）",
+                zip: "214400",
+                email: "jingzhang_dicp@njust.edu.cn",
+                phone: "0510-82182577",
+            },
+
+            // 导航栏菜单
+            navigation: [
+                { id: 'home', title: '首页' },
+                { id: 'research', title: '科学研究' },
+                { id: 'equipment', title: '实验设备' },
+                { id: 'publications', title: '发表论文' },
+                { id: 'people', title: '团队成员' },
+                { id: 'news', title: '新闻动态' },
+                { id: 'links', title: '相关链接' },
+                { id: 'contact', title: '联系我们' },
+            ],
+
+            // 首页内容
+            home: {
+                welcomeTitle: "欢迎来到张静教授课题组",
+                welcomeText: "我们致力于解决全球能源挑战，推动可持续能源的未来发展。",
+                sliderImages: [
+                    "news/2025年8月.png",
+                    "news/2025年7月.png",
+                    "news/2025年6月.png",
+                    "news/2025年5月.png",
+                    "news/2025年2月.png"
+                ],
+            },
+
+            // 新闻动态 (日期降序排列)
+            news: [
+                { date: "2025年8月", content: "我院张静教授荣获“催化发展卓越奖”" },
+                { date: "2025年7月", content: "南理工新能源学院-江阴市专精特新企业联盟新能源领域产学研对接会成功举办" },
+                { date: "2025年6月", content: "南京天加环境科技有限公司来访新能源学院交流座谈" },
+                { date: "2025年5月", content: "我院张静教授发表异相结与光生电荷分离的评述文章" },
+                { date: "2025年2月", content: "清华大学何向明教授应邀在新能源学院做报告" },
+            ],
+            
+            academicNews: [
+                { date: "2025年9月", content: "课题组关于光催化CO2还原研究取得新进展，成果发表于《Nature Catalysis》。" },
+                { date: "2025年8月", content: "张静教授受邀参加国际催化学术会议并作特邀报告。" },
+            ],
+            announcements: [
+                { date: "2025年9月15日", content: "本周五下午3点，A101会议室将举行课题组组会，请全体成员准时参加。" },
+                { date: "2025年9月1日", content: "欢迎新同学加入课题组！" },
+            ],
+
+            // 研究方向
+            research: [
+                {
+                    title: "氢能绿色制造（AEM/PEM/ALK电解水制氢技术；硝酸根还原高效催化剂设计制备；先进原位表征技术开发）",
+                    description: "绿色氢能制造致力于实现关键催化材料、核心膜电极规模化制备以及电解槽结构设计的重大突破，主要开展阴离子/质子交换膜(AEM、PEM)水电解、碱性水电解以及硝酸根绿色转化制氨（NO3RR）布局规划研究。在实验合成的基础上辅以特色先进原位表征、化学反应动力学、高通量数值模拟等手段，为未来电解水制氢、硝酸根高值转化等绿色能源转换利用奠定研究与技术基础。",
+                    image: "研究方向/氢能绿色制造.jpg"
+                },
+                {
+                    title: "光驱动能源小分子转化",
+                    description: "光驱动能源小分子转化研究聚焦于开发高效稳定的半导体光催化剂，以实现CO₂等分子的定向转化。研究核心是以过渡金属氧化物、金属钒酸盐等材料为基础，通过能带工程、缺陷工程和A位取代等策略调控其电子结构，从而显著提升光吸收能力、电荷分离效率及催化活性。针对稳定性挑战，重点优化材料的抗光腐蚀性能。为实现高转化效率，通过耦合光催化与光热催化，利用光生热效应协同降低反应能垒，从而实现高效、高选择性的光驱动CO₂甲烷化，为碳循环和可再生能源储存提供关键技术路径。",
+                    image: "研究方向/光驱动能源小分子转化.jpg"
+                },
+                {
+                    title: "离子电池及电极制备技术（锂离子电池、钠离子电池、干法电极技术等）",
+                    description: "离子电池研究致力于离子电池及电极制备技术研究方向致力于碱金属离子电池及多价金属离子电池相关电极材料材料的开发、机理等研究。先进干法电极技术是通过将活性材料、导电剂与粘结剂干混后直接压延成膜，省去了传统的浆料搅拌、涂布和烘干等湿法工序。该技术可简化流程、降低能耗，并有望提升电池能量密度，尤其适用于固态电池的制造。",
+                    image: "研究方向/离子电池及电极制备技术.jpg"
+                }
+            ],
+            
+            // 实验设备
+            equipment: [
+               { name: "X射线衍射仪 (XRD)", image: "Equipment/X射线衍射仪.jpg", description: "用于分析材料的物相组成和晶体结构信息。" },
+	            { name: "比表面积与孔隙分析仪", image: "Equipment/比表面积与孔隙分析仪.jpg", description: "用于测量多孔材料的比表面积、孔径分布和孔容等关键参数。"},
+                { name: "超声喷涂仪", image: "Equipment/超声喷涂仪.jpg", description: "用于燃料电池膜电极的制备。" },
+                { name: "傅里叶变换红外光谱分析仪", image: "Equipment/傅里叶变换红外光谱分析仪.jpg", description: "用于确定化合物的成分和结构。" },
+                { name: "光催化评价装置", image: "Equipment/光催化评价装置.jpg", description: "用于研究光催化材料的光催化性能。" },
+                { name: "离子色谱", image: "Equipment/离子色谱.jpg", description: "用于高效分析阴离子和阳离子。" },
+                { name: "普林斯顿电化学工作站", image: "Equipment/普林斯顿电化学工作站.jpg", description: "用于进行各类电化学测试，如循环伏安、线性扫描伏安和电化学阻抗谱等。" },
+                { name: "气体吸附仪", image: "Equipment/气体吸附仪.jpg", description: "用于精准测定固体材料对气体吸附性能" },
+                { name: "气相色谱", image: "Equipment/气相色谱.jpg", description: "用于对复杂混合物进行定性和定量分析。" },
+                { name: "气相色谱-质谱联用仪", image: "Equipment/气相色谱-质谱联用仪.jpg", description: "用于对多组分的复杂混合物进行定性和定量分析。" },
+                { name: "全玻璃自动在线微量气体分析系统", image: "Equipment/全玻璃自动在线微量气体分析系统.jpg", description: "用于光催化、光热催化、电催化、PEC光电化学等反应的微量气体检测。" },
+                { name: "四通道PEM电解池测试仪", image: "Equipment/四通道PEM电解池测试仪.jpg", description: "用于多种模式电解池测试，高效支撑PEM电解水制氢核心材料的研发测试，优化电解池操作条件。" },
+                { name: "太阳能光热二氧化碳转化平台", image: "Equipment/太阳能光热二氧化碳转化平台.jpg", description: "用于太阳能光热二氧化碳转化的研发测试。" },
+                { name: "微分电化学质谱仪", image: "Equipment/微分电化学质谱仪.jpg", description: "用于现场检测电化学反应中的挥发性气体产物及动力学参数，中间体及其结构的性质。" },
+                { name: "紫外-可见分光光度计", image: "Equipment/紫外-可见分光光度计.jpg", description: "用于物质的定性与定量分析。" },
+                { name: "液相色谱仪", image: "Equipment/液相色谱仪.jpg", description: "用于分离和检测混合物，精确分析催化反应的产物分布。" }
+
+            ],
+
+            // 发表论文 (按年份分组)
+            publications: {
+                "2025": [
+                    { text: 'Heterophase junction effect on photogenerated charge separationin photocatalysis and photoelectrocatalysis. Acc Chem.Res.,2025,58,787-798.', links: [] },
+                    { text: 'Integrating localized surface plasmon resonance and electronic metal–support interactions for facilitating photothermal sabatier reaction. Advanced Functional Materials, 2025, 2500357', links: [] },
+                    { text: 'Metal halide perovskites for efficient solar energy conversion and storage systems: Principles, recent advances, challenges and prospects. Nano Energy, 2025, 137, 110782.', links: [] },
+                    { text: 'A Universal Oxygen Scavenger for Oxidase-based Biosensors. Sci. Adv. 2025, In press.', links: [] },
+                ],
+                "2024": [
+                    { text: 'Novel A-D-A type naphthalenediimide supramolecule for H2O2 photosynthesis with solar-to-chemical conversion 1.03%, Advanced Energy Materials, 2024,2401437.', links: [] },
+                    { text: 'Efficient H2O2 photocatalysis by a novel organic semiconductor with electron donor-acceptor interface, Applied Catalysis B: Environment and Energy, 2024,123884.', links: [] },
+                    { text: 'A diacetylene covalent organic framework through a one-step two-electron O2 reduction pathway for efficient photosynthesis of H2O2, Catalysis Science & Technology, 2024,2470-2478.', links: [] },
+                    { text: 'Epitaxial Growth of PdH@Ru Hollow Nanobamboos for Efficient Hydrogen Evolution in Anion Exchange Membrane Electrolyzer. Adv. Funct. Mater., 2024, 2414593.', links: [] },
+                    { text: 'A unique one-pot strategy for PdH0.706 nanoparticles with enhanced stability and activity towards the ethanol oxidation reaction. Chem. Commun., 2024, 60, 13063-13066.', links: [] },
+                    { text: 'Ultrathin core–shell Au@RuNi nanowires for superior electrocatalytic hydrogen evolution. Inorg. Chem. Front., 2024, 11, 3426-3434.', links: [] },
+                    { text: 'PtPdAg nanotrees with low Pt content for high CO tolerance within formic acid and methanol electrooxidation. Rare Met. 2024.', links: [] },
+                    { text: 'Facile synthesis of Co1-xZnxFe2O4 spinel oxides for enhanced alkaline oxygen reduction reaction. Fuel 2024, 373, 132398.', links: [] },
+                    { text: 'Ultrathin core-shell-satellite structured Au@PtPd@Pt nanowires for superior electrocatalytic hydrogen evolution. Mater. Chem. Front. 2024, 8, 265-273.', links: [] },
+                    { text: 'Semi-artificial Photosynthetic Nanoreactors for H2 Generation. J. Am. Chem. Soc, 2024, 146,34260-34264.', links: [] },
+                ],
+            },
+
+            // 团队成员
+            people: {
+                faculty: [
+                    {
+                        name: "张静 教授",
+                        title: "博士生导师，新能源学院院长",
+                        description: "国务院政府特殊津贴专家，国家级高层次青年人才。长期致力于新能源催化转化和工业减污降碳的研究。专注于光/电/热催化领域的前沿探索，旨在通过基础研究推动关键能源技术的突破与应用。",
+                        email: "jingzhang_dicp@njust.edu.cn",
+                        image: "https://placehold.co/150x150/60a5fa/ffffff?text=张静",
+                        isPI: true 
+                    },
+                    {
+                        name: "蔡同辉",
+                        title: "副教授",
+                        description: "长期专注于新型金属离子电池及储能器件的研究，在电极材料的工业化制备技术与电化学机理方面拥有丰富经验，致力于开发高能量密度、长寿命的下一代电池技术。",
+                        image: "https://placehold.co/120x120/a5b4fc/ffffff?text=蔡同辉",
+                        isPI: false
+                    },
+                    {
+                        name: "江娴",
+                        title: "讲师 / 硕导",
+                        description: "研究聚焦于质子交换膜燃料电池（PEMFC）核心材料与膜电极的开发，致力于提升电池的性能、耐久性与成本效益，为燃料电池技术的商业化应用提供关键材料解决方案。",
+                        image: "https://placehold.co/120x120/a5b4fc/ffffff?text=江娴",
+                        isPI: false
+                    },
+                    {
+                        name: "陈勇",
+                        title: "讲师",
+                        description: "主要研究方向为太阳能光催化，探索新型半导体光催化剂的制备及其在环境治理和能源转化中的应用，特别关注于光生电荷分离效率的提升与反应机理的深入解析。",
+                        image: "https://placehold.co/120x120/a5b4fc/ffffff?text=陈勇",
+                        isPI: false
+                    },
+                     {
+                        name: "张慧杰",
+                        title: "讲师",
+                        description: "主要从事先进电催化材料的设计与开发，及其在清洁能源转化中的应用研究，特别是在高效析氢/析氧催化剂方面有深入研究。",
+                        image: "https://placehold.co/120x120/a5b4fc/ffffff?text=张慧杰",
+                        isPI: false
+                    },
+                    {
+                        name: "徐贝贝",
+                        title: "讲师",
+                        description: "致力于发展和应用先进原位表征技术（如原位红外、拉曼光谱等），以实时、分子水平上揭示催化反应的动态过程和机理，为催化剂的理性设计提供实验依据。",
+                        image: "https://placehold.co/120x120/a5b4fc/ffffff?text=徐贝贝",
+                        isPI: false
+                    }
+                ],
+                postdocsAndPhds: [
+                    { name: "季蓉", image: "media/季蓉.jpg", researchDirection: "光催化CO2还原", motto: "行而不辍，未来可期。" },
+                    { name: "尹金城", image: "media/尹金城.jpg", researchDirection: "催化氧化脱硝", motto: "格物致知，笃行不怠。" },
+                    { name: "张青青", image: "media/张青青.jpg", researchDirection: "电催化塑料降解", motto: "科研之路，贵在坚持。" },
+                    { name: "吴昊", image: "media/吴昊.jpg", researchDirection: "电催化", motto: "大胆假设，小心求证。" },
+                    { name: "袁昊阳", image: "media/袁昊阳.jpg", researchDirection: "光催化CO2还原", motto: "博学之，审问之，慎思之，明辨之，笃行之。" },
+                    { name: "董理", image: "media/董理.jpg", researchDirection: "电催化塑料降解", motto: "道阻且长，行则将至。" }
+                ],
+                masterThirdYear: [
+                    { name: "郭雨絮", image: "media/郭雨絮.jpg", researchDirection: "电催化", motto: "积跬步，至千里。" },
+                    { name: "李尚纯", image: "media/李尚纯.jpg", researchDirection: "电催化硝酸根还原", motto: "业精于勤，荒于嬉。" },
+                    { name: "叶小兰", image: "media/叶小兰.jpg", researchDirection: "硝酸根还原", motto: "心之所向，素履以往。" },
+                    { name: "任浩", image: "media/任浩.jpg", researchDirection: "光催化CO2还原", motto: "志不求易，事不避难。" }
+                ],
+                masterSecondYear: [
+                    { name: "李以博", image: "media/李以博.jpg", researchDirection: "电解水", motto: "学无止境，勇攀高峰。" },
+                    { name: "周骏杰", image: "media/周骏杰.jpg", researchDirection: "电解水", motto: "每一次实验都是新的开始。" },
+                    { name: "夏启越", image: "media/夏启越.jpg", researchDirection: "电解水", motto: "不忘初心，方得始终。" },
+                    { name: "祝春娜", image: "media/祝春娜.jpg", researchDirection: "碱性电解水制氢", motto: "让数据说话。" },
+                    { name: "康芳雅", image: "media/康芳雅.jpg", researchDirection: "电解水", motto: "保持好奇，不断探索。" },
+                    { name: "王超", image: "media/王超.jpg", researchDirection: "电解水", motto: "耐心和坚持是成功的关键。" },
+                    { name: "刘天华", image: "media/刘天华.jpg", researchDirection: "电解水", motto: "实践出真知。" },
+                    { name: "季峻毅", image: "media/季峻毅.jpg", researchDirection: "光催化CO2还原", motto: "在探索中成长。" },
+                    { name: "张浩轩", image: "media/张浩轩.jpg", researchDirection: "铝硫电池", motto: "细节决定成败。" },
+                    { name: "彭唯婕", image: "media/彭唯婕.jpg", researchDirection: "光解水", motto: "追逐科学之光。" },
+                    { name: "宋子毅", image: "media/宋子毅.jpg", researchDirection: "锂离子电池硅碳负极", motto: "创新永无止境。" },
+                    { name: "姬胜捷", image: "media/姬胜捷.jpg", researchDirection: "光催化烷烃脱氢", motto: "沉心科研，静待花开。" },
+                    { name: "逯景宇", image: "media/逯景宇.jpg", researchDirection: "硝酸根还原", motto: "做一个有思想的实验者。" },
+                    { name: "杨阳", image: "media/杨阳.jpg", researchDirection: "锂离子电池干法电极", motto: "每一次失败都离成功更近一步。" },
+                    { name: "翟斐昊", image: "media/翟斐昊.jpg", researchDirection: "电解水", motto: "用实验验证奇思妙想。" }
+                ],
+                masterFirstYear: [],
+                alumni: []
+            },
+            
+            links: {
+                common: [
+                    { name: "南京理工大学 (NJUST)", url: "https://www.njust.edu.cn/", description: "南京理工大学官方网站" },
+                    { name: "新能源学院", url: "https://xny.njust.edu.cn/", description: "南京理工大学新能源学院官方网站" },
+                ],
+                journals: [
+                    { name: "Science", url: "https://www.science.org/" },
+                    { name: "Nature", url: "https://www.nature.com/" },
+                    { name: "Nature Chemistry", url: "https://www.nature.com/nchem/" },
+                    { name: "Nature Materials", url: "https://www.nature.com/nmat/" },
+                    { name: "Nature Nanotechnology", url: "https://www.nature.com/nnano/" },
+                    { name: "Nature Catalysis", url: "https://www.nature.com/natcatal/" },
+                    { name: "Nature Sustainability", url: "https://www.nature.com/natsustain/" },
+                    { name: "Nature Energy", url: "https://www.nature.com/nenergy/" },
+                    { name: "Nature Synthesis", url: "https://www.nature.com/natsynth/" },
+                    { name: "Journal of the American Chemical Society", url: "https://pubs.acs.org/journal/jacsat" },
+                    { name: "Angewandte Chemie Int. Ed.", url: "https://onlinelibrary.wiley.com/journal/15213773" },
+                    { name: "Advanced Materials", url: "https://onlinelibrary.wiley.com/journal/15214095" },
+                    { name: "Advanced Energy Materials", url: "https://onlinelibrary.wiley.com/journal/16146840" },
+                    { name: "Advanced Functional Materials", url: "https://onlinelibrary.wiley.com/journal/16163028" },
+                    { name: "Energy & Environmental Science", url: "https://pubs.rsc.org/en/journals/journalissues/ee" },
+                    { name: "Chem", url: "https://www.cell.com/chem/home" },
+                    { name: "Joule", url: "https://www.cell.com/joule/home" },
+                    { name: "Matter", url: "https://www.cell.com/matter/home" },
+                    { name: "PNAS", url: "https://www.pnas.org/" },
+                    { name: "Nature Communications", url: "https://www.nature.com/ncomms/" },
+                    { name: "Science Advances", url: "https://www.science.org/journal/sciadv" },
+                    { name: "ACS Nano", url: "https://pubs.acs.org/journal/ancac3" },
+                    { name: "ACS Catalysis", url: "https://pubs.acs.org/journal/accacs" },
+                    { name: "ACS Energy Letters", url: "https://pubs.acs.org/journal/aelccp" },
+                    { name: "Nano Letters", url: "https://pubs.acs.org/journal/nalefd" },
+                    { name: "Nano Energy", url: "https://www.sciencedirect.com/journal/nano-energy" },
+                    { name: "Applied Catalysis B", url: "https://www.sciencedirect.com/journal/applied-catalysis-b-environmental" }
+                ]
+            }
+        };
+
+        // ===================================================================================
+        // ============================ 网站渲染与交互逻辑 ===================================
+        // ===================================================================================
+        // **说明**: 以下代码负责根据上方的数据生成页面内容,一般无需修改。
+        // ===================================================================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 函数定义区 ---
+            window.showPage = function(pageId) {
+                document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+                
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                const activeLink = document.getElementById('nav-' + pageId);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+
+                const pageTitle = siteData.navigation.find(p => p.id === pageId)?.title || '首页';
+                document.title = `${siteData.labName} | ${pageTitle}`;
+                
+                window.scrollTo(0, 0);
+            }
+
+            window.closeMobileMenu = function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            }
+
+            function renderHomePage() {
+                return `
+                <div id="home" class="page-content">
+                    <section class="text-center mb-12">
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">${siteData.home.welcomeTitle}</h1>
+                        <p class="max-w-3xl mx-auto text-gray-600">${siteData.home.welcomeText}</p>
+                    </section>
+                    <section class="mb-12 rounded-lg overflow-hidden shadow-md">
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                ${siteData.home.sliderImages.map(imgUrl => `
+                                <div class="swiper-slide">
+                                    <img src="${imgUrl}" alt="实验室新闻图片">
+                                </div>`).join('')}
+                            </div>
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </section>
+                    
+                    <div class="space-y-12">
+                        <section class="w-full max-w-3xl mx-auto">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-2 text-center">新闻</h2>
+                            <ul class="space-y-4">
+                                ${siteData.news.map(item => `
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 font-semibold w-36">${item.date}</span>
+                                    <p class="text-gray-700">${item.content}</p>
+                                </li>`).join('')}
+                            </ul>
+                        </section>
+                        
+                        <section class="w-full max-w-3xl mx-auto">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-2 text-center">学术动态</h2>
+                            <ul class="space-y-4">
+                                ${siteData.academicNews.map(item => `
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 font-semibold w-36">${item.date}</span>
+                                    <p class="text-gray-700">${item.content}</p>
+                                </li>`).join('')}
+                            </ul>
+                        </section>
+
+                        <section class="w-full max-w-3xl mx-auto">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-2 text-center">通知公告</h2>
+                            <ul class="space-y-4">
+                                ${siteData.announcements.map(item => `
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 font-semibold w-36">${item.date}</span>
+                                    <p class="text-gray-700">${item.content}</p>
+                                </li>`).join('')}
+                            </ul>
+                        </section>
+                    </div>
+                </div>`;
+            }
+
+            function renderResearchPage() {
+                return `
+                <div id="research" class="page-content">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">科学研究</h1>
+                    <div class="space-y-12">
+                        ${siteData.research.map(item => `
+                        <div class="grid md:grid-cols-3 gap-8 items-center">
+                            <div class="md:col-span-1">
+                                <img src="${item.image}" alt="${item.title}" class="w-full h-auto rounded-lg shadow-md">
+                            </div>
+                            <div class="md:col-span-2">
+                                <h2 class="text-2xl font-semibold mb-2">${item.title}</h2>
+                                <p class="text-gray-600">${item.description}</p>
+                            </div>
+                        </div>`).join('')}
+                    </div>
+                </div>`;
+            }
+            
+            function renderEquipmentPage() {
+                return `
+                <div id="equipment" class="page-content">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">实验设备</h1>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        ${siteData.equipment.map(e => `
+                        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                            <img src="${e.image}" alt="${e.name}" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg">${e.name}</h3>
+                                <p class="text-gray-600 text-sm mt-1">${e.description}</p>
+                            </div>
+                        </div>`).join('')}
+                    </div>
+                </div>`;
+            }
+
+            function renderPublicationsPage() {
+                let content = '<div id="publications" class="page-content"><h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">代表性论文</h1><div class="space-y-8">';
+                const years = Object.keys(siteData.publications).sort((a, b) => b - a);
+                for (const year of years) {
+                    content += `
+                    <div>
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">${year}</h2>
+                        <ul class="space-y-4 list-disc list-inside text-gray-700">
+                            ${siteData.publications[year].map(p => `
+                            <li>
+                                ${p.text}
+                                ${p.links.map(link => `<a href="${link.url}" class="text-blue-500 hover:underline ml-2">[${link.name}]</a>`).join('')}
+                            </li>`).join('')}
+                        </ul>
+                    </div>`;
+                }
+                content += '</div></div>';
+                return content;
+            }
+
+            function renderPeoplePage() {
+                const pi = siteData.people.faculty.find(f => f.isPI);
+                const otherFaculty = siteData.people.faculty.filter(f => !f.isPI);
+
+                const renderStudentGrid = (students) => {
+                    if (!students || students.length === 0) return '<p class="text-gray-500">暂无成员</p>';
+                    return `
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-8">
+                            ${students.map(s => `
+                            <div class="text-center flex flex-col items-center">
+                                <img src="${s.image}" class="w-32 h-32 rounded-lg mx-auto mb-4 shadow-md object-cover" alt="${s.name}" onerror="this.src='https://placehold.co/128x128/e2e8f0/64748b?text=${s.name.charAt(0)}'">
+                                <h4 class="font-semibold text-gray-800">${s.name}</h4>
+                                <p class="text-sm text-gray-600 mt-1 flex-grow">${s.researchDirection}</p>
+                                ${s.motto ? `<p class="text-xs text-blue-500 mt-2 italic">"${s.motto}"</p>` : ''}
+                            </div>`).join('')}
+                        </div>
+                    `;
+                };
+
+                return `
+                <div id="people" class="page-content">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">团队成员</h1>
+                    
+                    <section class="mb-12">
+                        <h2 class="text-2xl font-semibold mb-6">指导教师 (Faculty)</h2>
+                        <div class="space-y-8">
+                            <div class="flex flex-col md:flex-row items-center bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                                <img src="${pi.image}" class="w-32 h-32 rounded-full mb-4 md:mb-0 md:mr-8 object-cover" alt="${pi.name}">
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold">${pi.name}</h3>
+                                    <p class="text-blue-600">${pi.title}</p>
+                                    <p class="text-gray-600 mt-2 text-justify">${pi.description}</p>
+                                    <p class="text-gray-500 mt-2">邮箱: ${pi.email}</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                ${otherFaculty.map(f => `
+                                <div class="bg-white p-4 rounded-lg shadow-sm text-center flex flex-col">
+                                    <img src="${f.image}" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover" alt="${f.name}">
+                                    <h4 class="font-semibold text-lg">${f.name}</h4>
+                                    <p class="text-sm text-gray-500">${f.title}</p>
+                                    <p class="text-sm text-gray-600 mt-2 text-left flex-grow">${f.description}</p>
+                                </div>`).join('')}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-12">
+                        <h2 class="text-2xl font-semibold mb-6">博士后及博士 (Postdocs & PhD Students)</h2>
+                        ${renderStudentGrid(siteData.people.postdocsAndPhds)}
+                    </section>
+                    
+                    <section class="mb-12">
+                        <h2 class="text-2xl font-semibold mb-6">研三 (Third-year Master Students)</h2>
+                        ${renderStudentGrid(siteData.people.masterThirdYear)}
+                    </section>
+
+                    <section class="mb-12">
+                        <h2 class="text-2xl font-semibold mb-6">研二 (Second-year Master Students)</h2>
+                        ${renderStudentGrid(siteData.people.masterSecondYear)}
+                    </section>
+
+                    <section class="mb-12">
+                        <h2 class="text-2xl font-semibold mb-6">研一 (First-year Master Students)</h2>
+                        ${renderStudentGrid(siteData.people.masterFirstYear)}
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-semibold mb-6">已毕业成员 (Alumni)</h2>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                           <p class="text-gray-500">暂无成员</p>
+                        </ul>
+                    </section>
+                </div>`;
+            }
+
+            function renderNewsPage() {
+                return `
+                <div id="news" class="page-content">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">新闻动态</h1>
+                    <div class="space-y-6">
+                        ${siteData.news.map((item, index) => `
+                        <div class="p-4 border-l-4 ${index === 0 ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}">
+                            <p class="font-semibold text-gray-500">${item.date}</p>
+                            <p class="text-lg text-gray-800">${item.content}</p>
+                        </div>`).join('')}
+                    </div>
+                </div>`;
+            }
+
+            function renderLinksPage() {
+                const journalColumns = [[], [], []];
+                siteData.links.journals.forEach((journal, i) => {
+                    journalColumns[i % 3].push(`<li><a href="${journal.url}" target="_blank" class="hover:text-blue-500 hover:underline">${journal.name}</a></li>`);
+                });
+
+                return `
+                <div id="links" class="page-content">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">相关链接</h1>
+                    <section class="mb-12">
+                        <h2 class="text-2xl font-semibold mb-6">常用链接</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            ${siteData.links.common.map(link => `
+                            <a href="${link.url}" target="_blank" class="block bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                <h3 class="text-xl font-bold text-blue-600">${link.name}</h3>
+                                <p class="text-gray-600 mt-2">${link.description}</p>
+                            </a>`).join('')}
+                        </div>
+                    </section>
+                    <section>
+                        <h2 class="text-2xl font-semibold mb-6">推荐期刊</h2>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-700">
+                                ${journalColumns.map(col => `<ul class="space-y-2">${col.join('')}</ul>`).join('')}
+                            </div>
+                        </div>
+                    </section>
+                </div>`;
+            }
+
+            function renderContactPage() {
+                return `
+                <div id="contact" class="page-content">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">联系我们</h1>
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-4">联系方式</h2>
+                            <div class="space-y-3 text-gray-700">
+                                <p><strong>地址:</strong> ${siteData.contact.address}</p>
+                                <p><strong>邮编:</strong> ${siteData.contact.zip}</p>
+                                <p><strong>招聘邮箱:</strong> ${siteData.contact.email}</p>
+                                
+                            </div>
+                            <h2 class="text-2xl font-semibold mt-8 mb-4">招生信息</h2>
+                            <div class="prose max-w-none text-gray-700">
+                                <p>我们常年欢迎对新能源领域充满热情的优秀本科生、硕士生和博士生加入。我们希望你：</p>
+                                <ul>
+                                    <li>具备扎实的物理、化学、材料基础。</li>
+                                    <li>对解决能源问题有强烈的使命感和好奇心。</li>
+                                    <li>具备良好的动手能力和团队合作精神。</li>
+                                </ul>
+                                <p>有意者请将您的简历、成绩单及代表性成果发送至相关导师的邮箱。我们期待您的加入！</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-4">学院位置</h2>
+                            <div class="w-full h-80 bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
+                                <img src="PIC/地图位置.jpg" alt="地图" class="w-full h-full object-cover rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            }
+
+            function initSite() {
+                const banner = document.getElementById('lab-banner');
+                banner.style.backgroundImage = `url('${siteData.bannerImage}')`;
+                
+                const labNameBanner = document.getElementById('lab-banner');
+                const { justify, textAlign, padding } = siteData.bannerStyle;
+
+                labNameBanner.innerHTML = `
+                    <div class="flex items-center ${justify} w-full">
+                        <div class="banner-title ${textAlign} ${padding}">
+                            <h1 class="text-3xl md:text-4xl font-bold">${siteData.labName}</h1>
+                            <p class="text-lg md:text-xl text-white/90 mt-1">${siteData.labNameEn}</p>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('lab-name-header').innerHTML = `<a href="#" onclick="showPage('home')">${siteData.labName}</a>`;
+                document.getElementById('lab-name-footer').textContent = siteData.labName;
+                document.getElementById('current-year').textContent = new Date().getFullYear();
+
+                const mainNav = document.getElementById('main-nav');
+                const mobileMenu = document.getElementById('mobile-menu');
+                let navHtml = '';
+                siteData.navigation.forEach(item => {
+                    navHtml += `<a href="#" id="nav-${item.id}" class="nav-link text-gray-600 hover:text-blue-500 transition-colors duration-200" onclick="showPage('${item.id}')">${item.title}</a>`;
+                });
+                mainNav.innerHTML = navHtml;
+                mobileMenu.innerHTML = siteData.navigation.map(item => 
+                    `<a href="#" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100" onclick="showPage('${item.id}'); closeMobileMenu();">${item.title}</a>`
+                ).join('');
+
+                const mainContent = document.getElementById('main-content');
+                mainContent.innerHTML = `
+                    ${renderHomePage()}
+                    ${renderResearchPage()}
+                    ${renderEquipmentPage()}
+                    ${renderPublicationsPage()}
+                    ${renderPeoplePage()}
+                    ${renderNewsPage()}
+                    ${renderLinksPage()}
+                    ${renderContactPage()}
+                `;
+
+                new Swiper('.swiper', {
+                    loop: true,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+
+                showPage('home');
+            }
+            
+            document.getElementById('mobile-menu-button').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+
+            initSite();
+        });
+    </script>
+
+</body>
+</html>
