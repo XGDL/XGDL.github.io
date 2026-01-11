@@ -123,6 +123,64 @@
         .hover\:text-blue-700:hover { color: var(--theme-light); }
         .text-blue-900 { color: var(--theme-dark); }
         .bg-blue-50 { background-color: var(--theme-bg-light); }
+
+        /* 简历样式辅助 */
+        .profile-section-title {
+            color: var(--theme-color);
+            border-left: 4px solid var(--theme-light);
+            padding-left: 10px;
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .profile-list-item {
+            position: relative;
+            padding-left: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        .profile-list-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--theme-light);
+            font-weight: bold;
+        }
+        
+        /* 文章内容样式 */
+        .article-content h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--theme-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--theme-light);
+            padding-left: 0.75rem;
+        }
+        .article-content p {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+            text-align: justify;
+            color: #374151;
+        }
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.375rem;
+            margin: 1rem auto;
+            display: block;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        /* 修正：增加 !important 确保图片说明强制居中，覆盖 p 标签的 justify */
+        .article-content .article-img-caption {
+            text-align: center !important;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            margin-top: -0.5rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
@@ -133,7 +191,7 @@
             <div class="flex items-center gap-4">
                 <!-- Logo: 已去除白色边框 (border border-white/30) -->
                 <div class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg group hover:bg-white/20 transition-all overflow-hidden">
-                    <img src="PIC/logo.png" alt="Logo" class="w-full h-full object-contain p-2 drop-shadow-md">
+                    <img src="PIC/logo.png" alt="Logo" class="w-full h-full object-contain p-2 drop-shadow-md" onerror="this.src='https://placehold.co/100x100/2C7A7B/ffffff?text=Logo'">
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-4xl font-bold tracking-wide text-shadow-lg group-hover:text-teal-100 transition-colors">南京理工大学张静课题组</h1>
@@ -184,13 +242,15 @@
             labName: "南京理工大学张静课题组",
             labNameEn: "Prof. Jing Zhang's Group @ NJUST",
             contact: {
-                address: "江苏省江阴市临港开发区福星路8号（南京理工大学江阴校区）",
+                address: "江苏省江阴市福星路8号，南京理工大学新能源学院",
                 zip: "214400",
                 email: "jingzhang_dicp@njust.edu.cn",
                 phone: "0510-82182577",
             },
+            // Modified Navigation Order
             navigation: [
                 { id: 'home', title: '首页', en: 'Home' },
+                { id: 'leader', title: '组长简介', en: 'PI Profile' }, // 新增模块
                 { id: 'research', title: '科学研究', en: 'Research' },
                 { id: 'equipment', title: '实验设备', en: 'Facilities' },
                 { id: 'publications', title: '发表论文', en: 'Publications' },
@@ -198,6 +258,69 @@
                 { id: 'news', title: '新闻动态', en: 'News' },
                 { id: 'contact', title: '联系我们', en: 'Contact' },
             ],
+            // Leader Data - 从文档整合的完整数据
+            leader: {
+                name: "张静",
+                title: "教授 / 博士生导师 / 院长",
+                image: "media/张静.jpg",
+                email: "jingzhang_dicp@njust.edu.cn",
+                phone: "0510-82182577",
+                office: "南京理工大学江阴校区新能源学院",
+                bio: "张静教授的主要研究方向为光/电/热催化，新能源材料与工程，工业减污降碳。长期致力于新能源催化转化和工业减污降碳的研究，始终深耕光/电/热催化领域，专注于低成本、结构稳定的催化材料的规模化应用，提出用“表面结”结构“活化”光/电催化材料的理念，使光/电催化效率获得数量级提升。相关成果发表在Angew. Chem. Int. Ed.等学术期刊，单篇最高他引1535次，被美国科技周刊ACS C&E News, RSC英国皇家化学会等报道。",
+                researchInterests: [
+                    "光/电/热催化",
+                    "新能源材料与工程",
+                    "工业减污降碳"
+                ],
+                awards: [
+                    "2010年 省自然科学一等奖（排名3）",
+                    "2011年 国家自然科学二等奖（排名3）",
+                    "2012年 15届国际催化会议“青年科学家奖”(Young Scientist Award)",
+                    "2012年 中国催化新秀奖",
+                    "2014年 省科技进步三等奖（排名1）",
+                    "2015年 省特聘教授",
+                    "2017年 省科技进步二等奖(排名1)",
+                    "2019年 国务院政府特殊津贴专家",
+                    "2019年 省科技进步二等奖（排名2）",
+                    "2020年 国家级高层次青年人才",
+                    "2021年 省专利二等奖（排名1)",
+                    "2024年 江苏省人才攻关联合体技术总师",
+                    "2024年 江苏省“333工程”中青年领军人才"
+                ],
+                education: [
+                    "2001.09-2007.03 中科院大连化学物理研究所，硕博连读（导师：李灿 院士）"
+                ],
+                workExperience: [
+                    "2010.05-2012.05 美国西北大学催化研究中心，博士后",
+                    "2019 澳大利亚昆士兰大学，访问学者",
+                    "2019 法国里尔大学，访问学者",
+                    "2021.09-至今 南京理工大学教授，执行院长"
+                ],
+                projects: [
+                    "国家自然科学基金面上项目",
+                    "国家级高层次人才计划项目",
+                    "中央引导地方基金项目",
+                    "国家外专重点项目",
+                    "省科技领军人才项目",
+                    "省人才攻关联合体项目",
+                    "省自然科学基金面上项目",
+                    "中石化等企业横向项目"
+                ],
+                academicAppointments: {
+                    committees: [
+                        "2023年至今，中国化工学会催化委员会委员",
+                        "2023年至今，中国化工学会工程热化学专业委员会特聘副主任委员"
+                    ],
+                    editorialBoards: [
+                        "2017年至今，Chinese Journal of Catalysis编委",
+                        "2022年至今，Chemical Synthesis编委",
+                        "2023年至今，Carbon Neutralization编委",
+                        "2024年至今，eScience编委",
+                        "2024年至今，The Innovation编委",
+                        "2024年至今，Research编委"
+                    ]
+                }
+            },
             home: {
                 sliderImages: [
                     { src: "news/2025年8月.png", text: "我院张静教授荣获“催化发展卓越奖”" },
@@ -214,12 +337,176 @@
                 { date: "2025-05-05", content: "我院张静教授发表异相结与光生电荷分离的评述文章" },
                 { date: "2025-02-18", content: "清华大学何向明教授应邀在新能源学院做报告" },
             ],
-            academicNews: [
-                { content: "课题组关于光催化CO2还原研究取得新进展，成果发表于《Nature Catalysis》" },
-                { content: "张静教授受邀参加国际催化学术会议并作特邀报告" },
-                { content: "Heterophase junction effect on photogenerated charge separation published" },
-                { content: "Novel A-D-A type naphthalenediimide supramolecule for H2O2 photosynthesis" },
-                { content: "Efficient H2O2 photocatalysis by a novel organic semiconductor" }
+            // 新增：完整的学术动态文章数据 - 已更新图片为本地路径，并修复了特殊字符
+            academicArticles: [
+                {
+                    id: 1,
+                    title: "异相结的光生电荷分离效应！",
+                    journal: "Accounts of Chemical Research",
+                    date: "2025-01",
+                    content: `
+                        <p class="font-bold text-gray-800">▲第一作者：张静 | 通讯作者：李灿 | 论文DOI：10.1021/acs.accounts.4c00582</p>
+                        <h3>全文速览</h3>
+                        <p>针对如何提高光/光电催化中光生电荷分离这一重大难题，李灿院士团队早在2008年首次报道了“异相结”概念，随后这一概念在光催化、光电催化和电催化研究领域受到了广泛关注。本文详细阐述了“异相结”策略的发展历程与应用：首先详细阐述了“异相结”的定义、优势与特色；归纳总结了“异相结”的制备方法，为“异相结”的设计提供启示；利用时间和空间分辨光谱等讨论了“异相结”在纳米尺度上促进光生电荷分离的机理；重点讨论了“异相结”与光/光电催化性能的构效关系，在此基础上，阐述了“异相结”的理性设计原则；最后探讨了该领域面临的挑战和展望。</p>
+                        <h3>研究背景</h3>
+                        <p>光产生的电荷分离是决定太阳能转化效率的关键因素之一，因此发展促进光生电荷分离的策略以设计高效催化剂是该领域的核心。李灿院士团队发现，除了“p-n结”和“异质结”策略外，同一半导体材料的两种不同晶相之间所形成的“异相结”可以在纳米尺度上有效地促进光生电荷分离，目前，这一概念已成为开发高效光/光电催化剂的普适性策略。因此，总结“异相结”从发现到实际应用的发展过程，对指导高效光/光电催化剂的研发具有重要意义。</p>
+                        <h3>要点一：“异相结”的定义</h3>
+                        <p>“异质结”是指由两种不同能带结构的半导体接触组成的界面结构，若这两种半导体化学组成相同、结构相似但晶相不同，则所形成的界面被定义为“异相结”，即，“异相结”是“异质结”的一种特殊形式。“异相结”的物理本质源于同种材料不同晶相之间能带结构的微小差异，具体来说，当同一半导体材料的两种不同晶相形成界面接触时，费米能级通过界面电荷的重新分布而趋于平齐，从而形成内建电场（图1），这一内建电场能够在纳米尺度上有效地促进光生电荷的分离，从而抑制光生电荷的复合。</p>
+                        <div class="bg-gray-100 p-4 rounded text-center my-4">
+                            <img src="paper/2025/id1/1.png" alt="图1. “异相结”的形成示意图" onerror="this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Figure+1'">
+                            <p class="article-img-caption">图1. “异相结”的形成示意图（以金属氧化物MO的两种晶相，相A和相B为例）。</p>
+                        </div>
+                        <h3>要点二：“异相结”的合成策略</h3>
+                        <p>相变方法：大多数半导体具有多晶相特性，并且晶相间自由能差异较小，因此基于不同晶相的热稳定性差异，可以通过热力学/动力学调控晶相之间的相变过程来制备“异相结”。由于其简单又有效，相变方法已经成为了构建“异相结”的一种普适方法。更重要的是，相变过程伴随着晶体界面处的原子重排，有利于形成原子级匹配界面的“异相结”，而且通过精确控制相变过程（图2），可以调控“异相结”的晶相结构、晶相比例、能带结构和界面性质。</p>
+                        <div class="bg-gray-100 p-4 rounded text-center my-4">
+                            <img src="paper/2025/id1/2.png" alt="图2. 相变方法制备“异相结”的示意图" onerror="this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Figure+2'">
+                            <p class="article-img-caption">图2. 相变方法制备“异相结”的示意图（以锐钛矿/金红石TiO2异相结为例）</p>
+                        </div>
+                        <h3>总结与展望</h3>
+                        <p>“异相结”的概念自提出以来，已被广泛应用于光催化、光电催化以及电催化领域，但其从基础研究到产业化应用仍存在多重科学鸿沟亟待跨越。当前研究需着力构建"理论设计-机制解析-精准制备-系统集成"四位一体的创新研究范式，重点突破以下核心科学问题：首先，需建立多尺度计算框架（融合第一性原理、相场模拟与机器学习算法），来探索和发现新的“异相结”结构。其次，在载流子动力学层面，亟需发开发时间分辨和空间分辨表征技术，实现从飞秒级电荷分离到毫秒级表面反应的跨尺度动态追踪。</p>
+                    `
+                },
+                {
+                    id: 2,
+                    title: "南京理工大学新能源学院张静教授课题组：氢入晶格，活水释能",
+                    journal: "Chin. J. Catal.",
+                    date: "2025-01",
+                    content: `
+                        <p class="font-bold text-gray-800">第一作者：吴昊，江娴 | 通讯作者：张静 | DOI：10.1016/S1872-2067(25)64852-2</p>
+                        <h3>前言</h3>
+                        <p>近日，《催化学报》在线发表了南京理工大学张静教授团队在电解水领域的最新研究成果。针对碱性析氢中水解离受限、氢中间体吸附脱附失衡而导致动力学缓慢的关键瓶颈，团队提出原位将氢原子嵌入PdRu晶格的策略，实现电子结构与界面水环境的协同调控，使催化剂在碱性条件下展现出超低过电位和卓越稳定性。</p>
+                        <h3>主要创新点</h3>
+                        <p>1、电子调控机制创新： 以晶格氢驱动Pd–Ru–H的深度 s – d 耦合，实现电子态重构、界面水活化与氢吸附协同优化，系统突破碱性HER的动力学瓶颈。</p>
+                        <p>2、材料结构创新： 构筑氢掺杂超细PdRu枝晶，通过晶格膨胀与高缺陷开放结构协同提升活性和稳定性，形成优于Pt的碱性HER催化新范式。</p>
+                        <h3>主要研究结果</h3>
+                        <div class="bg-gray-100 p-4 rounded text-center my-4">
+                            <img src="paper/2025/id2/1.png" alt="图1. HInc-PdRu 的结构表征" onerror="this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Figure+1'">
+                            <p class="article-img-caption">图 1. HInc-PdRu 的结构表征。</p>
+                        </div>
+                        <p>要点1：我们采用乙醇为供氢溶剂，通过一步水热法成功将H原子掺入PdRu晶格，合成了H掺杂PdRu枝晶（HInc-PdRu）。HInc-PdRu保持三维枝晶结构，H的掺入导致晶格明显膨胀，间距从0.225 nm增至0.231 nm，并引起XRD衍射峰向低角度偏移。</p>
+                        <h3>全文小结</h3>
+                        <p>1. 针对碱性HER中水解离能垒高、H<sup>+</sup> 吸附/脱附失衡的关键问题，本研究提出晶格氢掺杂策略，从反应本源重构催化路径，实现了动力学性能的根本性突破。</p>
+                        <p>2. 晶格氢通过诱导Pd-Ru-H体系的 s - d 轨道耦合，调控活性位点电子结构，同步增强界面水分子活化和传质过程，协同促进Volmer与Heyrovsky步骤，显著优化反应能垒。</p>
+                        <p>3. 氢掺杂PdRu枝晶结构同步实现晶格缺陷化、电子结构优化与界面反应强化三重效应，在碱性HER中展现出超越商业Pt/C的综合性能，为设计高效稳定的非铂催化体系提供了新范式。</p>
+                    `
+                },
+                {
+                    id: 3,
+                    title: "低铂含量的PtPdAg纳米树在甲酸和甲醇电氧化中具有高的CO耐受性",
+                    journal: "Rare Metals",
+                    date: "2024",
+                    content: `
+                        <p class="font-bold text-gray-800">通讯作者：唐亚文，南京师范大学 | DOI：10.1007/s12598-024-02921-4</p>
+                        <h3>背景介绍</h3>
+                        <p>我们通过在预先制备的PdAg纳米树和Pt离子之间进行化学置换反应，合成了低Pt含量的PtPdAg纳米树，提高直接液体燃料电池（DLFCs）催化剂阳极反应动力学的同时有效减少铂的消耗。由于多孔分级结构的有效保持和少量Pt的加入，PtPdAg纳米树的电催化活性和稳定性明显增强，在DLFCs中的甲酸氧化反应（FAOR）和甲醇氧化反应（MOR）中质量比活性分别达到1.65 A·mgPt+Pd-¹和1.69 A·mgPt+Pd-¹，超过了PdAg纳米树、商用Pt黑和Pd黑的性能。</p>
+                        <h3>文章亮点</h3>
+                        <p>1. 通过Pt离子置换PdAg纳米树前驱体合成PtPdAg纳米树；</p>
+                        <p>2. PtPdAg纳米树保留了多级多孔的树状结构和丰富的活性位点；</p>
+                        <p>3. PtPdAg纳米树具有优异的双功能甲酸氧化和甲醇氧化活性、长期稳定性和CO耐受性；</p>
+                        <p>4. DFT计算表明，少量Pt的引入增强了CO抗毒化性能。</p>
+                        <div class="bg-gray-100 p-4 rounded text-center my-4">
+                            <img src="paper/2024/id3/1.png" alt="图1. PtPdAg纳米树的合成过程" onerror="this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Figure+1'">
+                            <p class="article-img-caption">图1 (a)PtPdAg纳米树的合成过程；(b)PtPdAg纳米树形成机理示意图</p>
+                        </div>
+                    `
+                },
+                {
+                    id: 4,
+                    title: "Angew：单原子钌促进硫化镉光催化生物质衍生酸制备氨基酸",
+                    journal: "Angew. Chem. Int. Ed.",
+                    date: "2023",
+                    content: `
+                        <p class="font-bold text-gray-800">第一作者：栗武林，郑秀辉，徐贝贝 | DOI：10.1002/anie.202320014</p>
+                        <h3>全文速览</h3>
+                        <p>氨基酸是蛋白质生物合成的基本组成部分，在许多领域都有应用，包括人类食物、药物、动物饲料以及生物塑料的前体等。我们通过简单的浸渍还原法在超薄硫化镉纳米片上引入了不同负载量的钌单原子（Ru1/CdS）。在可见光照射的温和条件下，所制备的Ru1/CdS可以通过生物质衍生的羟基酸和氨制备氨基酸。通过对金属负载量、反应时间、反应温度等反应条件进行调控优化，最终得到了26.0 molAla·gRu-1·h-1的最大丙氨酸形生成速率。</p>
+                        <h3>本文亮点</h3>
+                        <p>1. 通过简单的方法合成了Ru单原子超薄硫化镉纳米片光催化剂，并将其应用于生物质衍生 α -羟基酸产氨基酸，其表现出优异的光电化学性质以及催化活性。</p>
+                        <p>2. 对金属负载量、反应时间、反应温度等反应条件进行调控优化，最终得到了26.0 molAla·gRu-1·h-1的最大丙氨酸形生成速率，在保持相同条件的情况下，比Ru纳米颗粒对应物（RuNP/CdS）和传统热催化过程分别高1.7倍和两个数量级。</p>
+                        <p>3. 揭示了Ru单原子催化剂对乳酸光催化还原胺化的特殊作用，提出了其对CH-OH和CH3-CH-OH结构的独特“双重激活”作用。</p>
+                        <div class="bg-gray-100 p-4 rounded text-center my-4">
+                            <img src="paper/2023/id4/1.png" alt="图1. Ru1/CdS的形貌表征" onerror="this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Figure+1'">
+                            <p class="article-img-caption">图1 Ru1/CdS的形貌表征</p>
+                        </div>
+                    `
+                },
+                {
+                    id: 5,
+                    title: "南京理工大学AFM：PdH@Ru 空心纳米竹在阴离子交换膜电解槽中实现高效析氢！",
+                    journal: "Adv. Funct. Mater.",
+                    date: "2024",
+                    content: `
+                        <p class="font-bold text-gray-800">第一作者：江娴 | 通讯作者：王文超，付更涛，Yingnan Cao</p>
+                        <h3>研究背景</h3>
+                        <p>本文介绍了一种新型的氢原子封端的核壳PdH@Ru纳米竹（NBs），该纳米结构在碱性介质中表现出优异的活性和耐久性。通过外延生长和原位DMF氢化的协同策略，合成的PdH@Ru NBs在氢进化反应（HER）中展现出卓越的活性，仅需14 mV的过电位即可达到10 mA cm-2的电流密度，超过了商用Pt/C和无氢Pd@Ru NBs。</p>
+                        <h3>图文解析</h3>
+                        <div class="bg-gray-100 p-4 rounded text-center my-4">
+                            <img src="paper/2024/id5/3.png" alt="图3. 电催化HER性能" onerror="this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Figure+3'">
+                            <p class="article-img-caption">图3. 1.0 m KOH电催化HER性能</p>
+                        </div>
+                        <p>综上所述，研究者们通过外延生长策略和原位 DMF 加氢方法合成了一种新型超细一维竹节状 PdH@Ru NBs 催化剂。这种催化剂由空心 PdH 纳米棒和超薄 fcc-Ru 外壳组成，表现出优异的碱性 HER 性能。</p>
+                    `
+                },
+                 {
+                    id: 6,
+                    title: "徐贝贝 Chem：原位NMR实现CO₂电还原过程中的“氢轨迹”，“碳轨迹”和“氧轨迹”跨尺度原位跟踪和动态属性解析",
+                    journal: "Chem",
+                    date: "2024",
+                    content: `
+                        <p class="font-bold text-gray-800">第一作者：徐贝贝、刘颖 | 通讯作者：王雪璐、王海丰、刘鹏飞</p>
+                        <h3>全文速览</h3>
+                        <p>近日，上海市磁共振重点实验室姚叶锋/王雪璐团队联合华东理工大学杨化桂/刘鹏飞团队，成功开发了面向气液固三相反应的原位电化学磁共振技术，通过碳纤维丝电极、质子膜封装、磁屏蔽导线与毛细线管路通气等核心技术搭建了新型三电极原位电催化微反应池，解决了通电且气液固共存带来的磁场扰动难题，实现了产物不分离的情况下对CO<sub>2</sub>电还原过程中的“氢轨迹”、“碳轨迹”和“氧轨迹”进行跨尺度原位跟踪和动态属性解析。</p>
+                        <h3>背景介绍</h3>
+                        <p>在CO<sub>2</sub>还原（CO2R）反应中，含氧（O）物种的界面亲和力是决定反应路径的关键因素，但由于CO<sub>2</sub>、H<sub>2</sub>O和HCO<sub>3</sub><sup>-</sup>等多组分之间的可逆反应，现有原位检测手段难以实时定量地追踪CO<sub>2</sub>R反应中活跃的含氧（O）物种变化。</p>
+                        <h3>本文亮点</h3>
+                        <p>原位电化学NMR技术实时追踪多相催化体系中的氧物种、碳物种和氢物种，揭示新型水辅助合成机理，显著促进CO<sub>2</sub>高选择性生成甲酸，该机理对多种含铜合金具有普适性，同时与其他先进原位谱学表征技术形成互补，为探究气液固电催化反应过程中溶液环境下的弱相互作用分子机理提供了新的研究手段。</p>
+                    `
+                },
+                 {
+                    id: 7,
+                    title: "Angew：以碳-氮化物负载的钯单原子光催化剂和水为质子源的转移加氢",
+                    journal: "Angew. Chem. Int. Ed.",
+                    date: "2022",
+                    content: `
+                         <p class="font-bold text-gray-800">通讯作者：Zupeng Chen | DOI：10.1002/anie.202207410</p>
+                         <h3>研究内容</h3>
+                         <p>太阳能驱动的不饱和键转移氢化在可持续有机合成中受到越来越多的关注，但作为氢供体的最终绿色来源，由于水分子分裂的高势垒，水很少被研究。在这里，与纳米颗粒对应物相比，氮化碳负载的钯单原子非均相催化剂在光催化供水转移氢化中具有优异的性能。同位素标记实验和操作核磁共振测量证实了使用在可见光照射下水分解原位产生的质子的直接氢化机制。</p>
+                         <h3>要点1</h3>
+                         <p>作者报告了使用介孔氮化碳负载的钯单原子催化剂（Pd1-mpg-C3N4）进行光催化水转移氢化的首次研究。</p>
+                         <h3>要点2</h3>
+                         <p>在可见光驱动的光催化苯乙烯加氢中的评估表明，与负载在相同载体上的Pd纳米粒子(PdNP-mpg-C3N4) 相比，Pd1-mpg-C3N4对乙苯形成的性能有所提高。</p>
+                         <div class="bg-gray-100 p-4 rounded text-center my-4">
+                            <img src="paper/2022/id7/1.png" alt="图1. 催化剂表征" onerror="this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Figure+1'">
+                            <p class="article-img-caption">图1. mpg-C3N4、Pd1-mpg-C3N4和PdNP-mpg-C3N4 的插图和 HAADF-STEM 图像</p>
+                        </div>
+                    `
+                },
+                 {
+                    id: 8,
+                    title: "ACS Catal：g-C3N4上Co单原子与PtCo粒子协同促进光催化全分解水",
+                    journal: "ACS Catalysis",
+                    date: "2022",
+                    content: `
+                         <p class="font-bold text-gray-800">第一作者：徐贝贝 | 通讯作者：华东师范大学王雪璐、姚叶锋</p>
+                         <h3>文章主要内容</h3>
+                         <p>单原子催化剂很少被报道用于光催化完整水分解反应（OWS）。文章设计了包含分散在 C3N4纳米片上的单原子 Co(CoSA) 中心和 PtCo 合金纳米颗粒 (Nps)。CoSAs 中心作为析氢反应 (HER) 的高活性位点，PtCo 合金作为析氧反应 (OER) 的高活性位点。CoSAs 中心和 PtCo 合金的协同实现了OWS反应的最大原子利用率。这种组合为原子分散的催化剂用于OWS 提供了新的思路。</p>
+                    `
+                },
+                 {
+                    id: 9,
+                    title: "低场核磁监测不同深度的光催化 Cr(VI)还原反应",
+                    journal: "Magnetic Resonance Letters",
+                    date: "2023",
+                    content: `
+                         <p class="font-bold text-gray-800">第一作者：徐贝贝，董景贤</p>
+                         <h3>摘要</h3>
+                         <p>铬（VI）（Cr（VI））是一种有毒金属离子，广泛存在于工业废水中。为了减少六价铬的污染，在过去几十年中，人们开发了许多将六价铬光催化还原为三价铬的技术。然而，由于废水处理过程中催化剂颗粒的沉积和分层，复杂的光还原过程往往阻碍了光催化剂在废水处理中还原Cr（VI）的实际效果。探索和理解催化剂颗粒的沉积和分层对光还原过程的影响是该领域的长期挑战。在此，本案例证明了这个问题可以通过使用低场核磁共振弛豫分层测试方法来解决。</p>
+                         <p>结果表明， 低场核磁共振弛豫法在研究工业废水处理铬（VI）光还原过程中具有很大的潜力。</p>
+                         <div class="bg-gray-100 p-4 rounded text-center my-4">
+                            <img src="paper/2023/id9/2.png" alt="图2. T2随光照时间变化" onerror="this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Figure+2'">
+                            <p class="article-img-caption">图2. 根据照明时间绘制样品不同层的横向弛豫时间（T2）</p>
+                        </div>
+                    `
+                }
             ],
             announcements: [
                 { date: "2025-09-15", content: "本周五下午3点，A101会议室将举行课题组组会，请全体成员准时参加。" },
@@ -228,18 +515,18 @@
             ],
             research: [
                 {
-                    title: "氢能绿色制造",
-                    description: "AEM/PEM/ALK电解水制氢技术；硝酸根还原高效催化剂设计制备；先进原位表征技术开发。",
+                    title: "氢能绿色制造（AEM/PEM/ALK电解水制氢技术；硝酸根还原高效催化剂设计制备；先进原位表征技术开发）",
+                    description: "绿色氢能制造致力于实现关键催化材料、核心膜电极规模化制备以及电解槽结构设计的重大突破，主要开展阴离子/质子交换膜(AEM、PEM)水电解、碱性水电解以及硝酸根绿色转化制氨（NO3RR）布局规划研究。在实验合成的基础上辅以特色先进原位表征、化学反应动力学、高通量数值模拟等手段，为未来电解水制氢、硝酸根高值转化等绿色能源转换利用奠定研究与技术基础。",
                     image: "研究方向/氢能绿色制造.jpg"
                 },
                 {
-                    title: "光驱动能源小分子转化",
-                    description: "开发高效稳定的半导体光催化剂，以实现CO₂等分子的定向转化。通过能带工程、缺陷工程调控电子结构。",
+                    title: "光驱动能源小分子转化（水分解、CO2还原、固氮等）",
+                    description: "光驱动能源小分子转化研究聚焦于开发高效稳定的半导体光催化剂，以实现CO₂等分子的定向转化。研究核心是以过渡金属氧化物、金属钒酸盐等材料为基础，通过能带工程、缺陷工程和A位取代等策略调控其电子结构，从而显著提升光吸收能力、电荷分离效率及催化活性。针对稳定性挑战，重点优化材料的抗光腐蚀性能。为实现高转化效率，通过耦合光催化与光热催化，利用光生热效应协同降低反应能垒，从而实现高效、高选择性的光驱动CO₂甲烷化，为碳循环和可再生能源储存提供关键技术路径。",
                     image: "研究方向/光驱动能源小分子转化.jpg"
                 },
                 {
-                    title: "离子电池及电极制备技术",
-                    description: "锂离子电池、钠离子电池、干法电极技术等。致力于开发高能量密度、长寿命的下一代电池技术。",
+                    title: "离子电池及电极制备技术（锂离子电池、钠离子电池、干法电极技术等）",
+                    description: "离子电池研究方向致力于单价和多价离子电池及电极制备技术，先进电极材料材料、储能机理等研究。先进干法电极技术是通过将活性材料、导电剂与粘结剂干混后直接压延成膜，该技术可简化流程、降低能耗，并有望提升电池能量密度，尤其适用于固态电池的制造。",
                     image: "研究方向/离子电池及电极制备技术.jpg"
                 }
             ],
@@ -247,7 +534,7 @@
                 faculty: [
                     { 
                         name: "张静", 
-                        title: "教授/博导/院长", 
+                        title: "教授/博导/院长/课题组组长", 
                         image: "media/张静.jpg",
                         description: "国务院政府特殊津贴专家，国家级高层次青年人才。长期致力于新能源催化转化和工业减污降碳的研究。专注于光/电/热催化领域的前沿探索，旨在通过基础研究推动关键能源技术的突破与应用。"
                     },
@@ -271,13 +558,13 @@
                     },
                     { 
                         name: "张慧杰", 
-                        title: "讲师", 
+                        title: "副教授/国家级高层次青年人才", 
                         image: "media/张慧杰.jpg",
                         description: "主要从事先进电催化材料的设计与开发，及其在清洁能源转化中的应用研究，特别是在高效析氢/析氧催化剂方面有深入研究。"
                     },
                     { 
                         name: "徐贝贝", 
-                        title: "讲师", 
+                        title: "讲师/硕导", 
                         image: "media/徐贝贝.jpg",
                         description: "致力于发展和应用先进原位表征技术（如原位红外、拉曼光谱等），以实时、分子水平上揭示催化反应的动态过程和机理，为催化剂的理性设计提供实验依据。"
                     }
@@ -332,16 +619,526 @@
                 { name: "紫外-可见分光光度计", image: "Equipment/紫外-可见分光光度计.jpg", description: "用于物质的定性与定量分析。" },
                 { name: "液相色谱仪", image: "Equipment/液相色谱仪.jpg", description: "用于分离和检测混合物，精确分析催化反应的产物分布。" }
             ],
-             publications: {
+            publications: {
                 "2025": [
-                    { text: 'Heterophase junction effect on photogenerated charge separationin photocatalysis and photoelectrocatalysis', journal: 'Acc Chem.Res.' },
-                    { text: 'Integrating localized surface plasmon resonance and electronic metal–support interactions for facilitating photothermal sabatier reaction', journal: 'Adv. Funct. Mater.' },
-                    { text: 'Metal halide perovskites for efficient solar energy conversion and storage systems: Principles, recent advances, challenges and prospects', journal: 'Nano Energy' },
+                    { 
+                        text: 'Heterophase junction effect on photogenerated charge separationin photocatalysis and photoelectrocatalysis', 
+                        authors: 'Jing Zhang , Xiuli Wang , Xiang Wang , Can Li', 
+                        journal: 'Accounts of Chemical Research', 
+                        doi: '10.1021/acs.accounts.4c00582' 
+                    },
+                    { 
+                        text: 'H-incorporated PdRu electrocatalyst for water splitting under alkaline condition', 
+                        authors: 'Hao Wu, Xian Jiang, Jingyu Lu, Yibo Li, Xinyan Li, Guidong Ju, Rengui Li,Jing Zhang', 
+                        journal: 'CHINESE JOURNAL OF CATALYSIS', 
+                        doi: '10.1016/s1872-2067(25)64852-2' 
+                    },
+                    { 
+                        text: 'Integrating localized surface plasmon resonance and electronic metal–support interactions for facilitating photothermal sabatier reaction.', 
+                        authors: 'Yong Chen, Guozhen Fan, Xiaoming Xu, Yuanming Zhang, Yang Li, Zhaosheng Li, and Zhigang Zou,', 
+                        journal: 'Advanced Functional Materials', 
+                        doi: '10.1002/adfm.202500357' 
+                    },
+                    { 
+                        text: 'Metal halide perovskites for efficient solar energy conversion and storage systems: Principles, recent advances, challenges and prospects.', 
+                        authors: 'Yong Chen, Ziyao Yue, Sai-Wing Tsang, Yuanhang Cheng', 
+                        journal: 'Nano Energy', 
+                        doi: '10.1016/j.nanoen.2025.110782' 
+                    },
+                    { 
+                        text: 'A Universal Oxygen Scavenger for Oxidase-based Biosensors.', 
+                        authors: 'Huijie Zhang†, Mohamed Saadeldin†, Darren Buesen, Hamzah Elfaitory, Jakob Burger, Vincent Friebe, Jonas Honacker, Tobias Voepel, Alaa Oughli, Nicolas Plumeré.*', 
+                        journal: 'Science Advances', 
+                        doi: '10.1126/sciadv.adw6133' 
+                    }
                 ],
                 "2024": [
-                    { text: 'Novel A-D-A type naphthalenediimide supramolecule for H2O2 photosynthesis with solar-to-chemical conversion 1.03%', journal: 'Adv. Energy Mater.' },
-                    { text: 'Efficient H2O2 photocatalysis by a novel organic semiconductor with electron donor-acceptor interface', journal: 'Appl. Catal. B' },
-                    { text: 'Semi-artificial Photosynthetic Nanoreactors for H2 Generation', journal: 'JACS' },
+                    { 
+                        text: 'Novel A-D-A type naphthalenediimide supramolecule for H2O2 photosynthesis with solar-to-chemical conversion 1.03%', 
+                        authors: 'Rong Ji, Yuming Dong, Xinyu Sun, Pengken Li, Renbao Zhang, Chengsi Pan, Hui Zhao, Yongfa Zhu', 
+                        journal: 'Advanced Energy Materials', 
+                        doi: '10.1002/aenm.202401437' 
+                    },
+                    { 
+                        text: 'Efficient H2O2 photocatalysis by a novel organic semiconductor with electron donor-acceptor interface', 
+                        authors: 'Rong Ji, Yuming Dong, Xinyu Sun, Chengsi Pan, Yunfan Yang, Hui Zhao, Yongfa Zhu', 
+                        journal: 'Applied Catalysis B: Environment and Energy', 
+                        doi: '10.1016/j.apcatb.2024.123884' 
+                    },
+                    { 
+                        text: 'A diacetylene covalent organic framework through a one-step two-electron O2 reduction pathway for efficient photosynthesis of H2O2', 
+                        authors: 'Pengken Li, Hui Zhao, Rong Ji, Wenwen Chi, Xinyu Sun, Yuming Dong', 
+                        journal: 'Catalysis Science & Technology', 
+                        doi: '10.1039/d4cy00298a' 
+                    },
+                    { 
+                        text: 'Epitaxial Growth of PdH@Ru Hollow Nanobamboos for Efficient Hydrogen Evolution in Anion Exchange Membrane Electrolyzer.', 
+                        authors: 'Jiang, X.; Wang, Y.; Ding, J.; Wang, C.; Tang, Y.; Cao, Y.;⁎ Wang, W.;⁎ Fu, G.⁎', 
+                        journal: 'Advanced Functional Materials', 
+                        doi: '10.1002/adfm.202414593' 
+                    },
+                    { 
+                        text: 'A unique one-pot strategy for PdH0.706 nanoparticles with enhanced stability and activity towards the ethanol oxidation reaction.', 
+                        authors: 'Jiang, X.; Ren, Y.; Wang, C.; Wang, Y.; Wang, D.; Kang, F.; Wang, W.; Cao, Y.;⁎ Li, Z.;⁎ Tang, Y.⁎', 
+                        journal: 'Chemical Communications', 
+                        doi: '10.1039/d4cc04766d' 
+                    },
+                    { 
+                        text: 'Ultrathin core–shell Au@RuNi nanowires for superior electrocatalytic hydrogen evolution.', 
+                        authors: 'Jiang, X.; Wei, X.; Chen, M.; Fu, C.; Wang, Y.; Wang, C.; Sun, H.;⁎ Zhou, J.;⁎ Tang, Y.⁎', 
+                        journal: 'Inorganic Chemistry Frontiers', 
+                        doi: '10.1039/d4qi00518j' 
+                    },
+                    { 
+                        text: 'PtPdAg nanotrees with low Pt content for high CO tolerance within formic acid and methanol electrooxidation.', 
+                        authors: 'Wang, Y.; Zhang, S.; Deng, Y.; Luan, S.; Wang, C.; Ding, L.; Jiang, X.;⁎ Sun, D.;⁎ Tang, Y.⁎', 
+                        journal: 'Rare Met.', 
+                        doi: '10.1007/s12598-024-02921-4.' 
+                    },
+                    { 
+                        text: 'Facile synthesis of Co1-xZnxFe2O4 spinel oxides for enhanced alkaline oxygen reduction reaction.', 
+                        authors: 'Yang, X.; Wang, Y.; Li, S.; Chen, D.; Yu, T.; Liu, Z.;⁎ Jiang, X.⁎', 
+                        journal: 'Fuel', 
+                        doi: '10.1016/j.fuel.2024.132398' 
+                    },
+                    { 
+                        text: 'Ultrathin core-shell-satellite structured Au@PtPd@Pt nanowires for superior electrocatalytic hydrogen evolution.', 
+                        authors: 'Wang, C.;‡ Jiang, X.;‡, ⁎ Liu, Q.; Ding, J.; Zhou, J.;⁎ Tang, Y.; Fu, G.; Lee, J.-M.⁎', 
+                        journal: 'Materials Chemistry Frontiers', 
+                        doi: '10.1039/d3qm00618b' 
+                    },
+                    { 
+                        text: 'Semi-artificial Photosynthetic Nanoreactors for H2 Generation.', 
+                        authors: 'Huijie Zhang, Jan Jaenecke, Imogen L. Bishara Robertson, Carla Casadevall, Holly J. Redman, Martin Winkler, Gustav Berggren, Nicolas Plumeré, Julea N. Butt, Erwin Reisner and Lars J. C. Jeuken*.', 
+                        journal: 'Journal of the American Chemical Society', 
+                        doi: '10.1021/jacs.4c12311' 
+                    },
+                    { 
+                        text: 'Operando electrochemical NMR spectroscopy reveals a water-assisted formate formation mechanism', 
+                        authors: 'Bei Bei Xu,1,4,5 Ying Liu,2,5 Yuanwei Liu,3 Xiaomeng You,1 Hang Zhou,1 Yi Ning Xu,3 Peng Fei Liu,3,*Hai Feng Wang,2,* Hua Gui Yang,3 Xue Lu Wang,1,6,* and Ye Feng Yao1', 
+                        journal: 'Chem', 
+                        doi: '10.1016/j.chempr.2024.06.001' 
+                    }
+                ],
+                "2023": [
+                    { 
+                        text: 'Z-scheme cobalt-iron oxide/perylene diimide supermolecule heterojunction for high-efficiency ciprofloxacin removal in a photocatalysis-self-Fenton system', 
+                        authors: 'Rong Ji, Yuming Dong, Hui Zhao, Chengsi Pan, Guangli Wang, Yongfa Zhu, Junshan Li', 
+                        journal: 'Journal of Colloid and Interface Science', 
+                        doi: '10.1016/j.jcis.2023.05.180' 
+                    },
+                    { 
+                        text: 'Epitaxial growth triggered core-shell Pd@RuP nanorods for high-efficiency electrocatalytic hydrogen evolution.', 
+                        authors: 'Ding, J.; Jiang, X.;⁎ Wang, C.; Zhu, Z.; Xu, C.; Zhou, Y.; Wang, X.; Liu, Q.; Liu, Z.; Tang, Y.; Lin, J.;⁎ Fu, G.⁎', 
+                        journal: 'Journal of Energy Chemistry', 
+                        doi: '10.1016/j.jechem.2023.07.035' 
+                    },
+                    { 
+                        text: 'Recent advances in nonmetallic modulation of palladium-based electrocatalysts.', 
+                        authors: 'Wang C.; Jiang, X.;⁎ Wang Y.; Tang Y.; Zhou J.;⁎ Fu, G.⁎', 
+                        journal: 'Chemical Synthesis', 
+                        doi: '10.20517/cs.2022.34' 
+                    },
+                    { 
+                        text: 'Rational Design of Covalent Multiheme Cytochrome‐Carbon Dot Biohybrids for Photoinduced Electron Transfer.', 
+                        authors: 'Huijie Zhang†, Carla Casadevall†, Jessica H van Wonderen, Lin Su, Julea N Butt*, Erwin Reisner*, Lars JC Jeuken*.', 
+                        journal: 'Advanced Functional Materials', 
+                        doi: '10.1002/adfm.202302204' 
+                    },
+                    { 
+                        text: 'Atomic Ruthenium-Promoted Cadmium Sulfide for Photocatalytic Production of Amino Acids from Biomass Derivatives', 
+                        authors: 'Wulin Li, Xiuhui Zheng, Bei-Bei Xu, Yue Yang, Yifei Zhang, Lingchao Cai, Zhu-Jun Wang, Ye-Feng Yao, Bing Nan, Lina Li, Xue-Lu Wang, Xiang Feng, Markus Antonietti, Zupeng Chen', 
+                        journal: 'Angewandte Chemie International Edition', 
+                        doi: '10.1002/anie.202320014' 
+                    }
+                ],
+                "2022": [
+                    { 
+                        text: 'A2V2O7 (A = Co, Ni, Cu and Zn) for CO2 reduction under visible-light irradiation: effects of A site replacement.', 
+                        authors: 'Menyang Du, Yong Chen (co-first author), Wenjing Wang, Xiaoming Xu, Yang Li, Yuanming Zhang, Zhaosheng Li, Zhigang Zou', 
+                        journal: 'Applied Catalysis B: Environmental', 
+                        doi: '10.1016/j.apcatb.2022.121722' 
+                    },
+                    { 
+                        text: 'Bandgap engineering and oxygen vacancies of NixV2O5+x (x=1, 2, 3) for efficient visible light-driven CO2 to CO with nearly 100% selectivity.', 
+                        authors: 'Yong Chen, Yuanming Zhang, Wenjing Wang, Xiaoming Xu, Yang Li, Mengyang Du, Zhaosheng Li and Zhigang Zou', 
+                        journal: 'Solar RRL', 
+                        doi: '10.1002/solr.202200099' 
+                    },
+                    { 
+                        text: 'Ethanol-induced hydrogen insertion in ultrafine IrPdH boosts pH-universal hydrogen evolution.', 
+                        authors: 'Wang D.; Jiang X.;⁎ Lin Z.; Zeng X.; Zhu Y.; Wang Y.; Gong M.; Tang Y.;⁎ Fu G.⁎', 
+                        journal: 'Small', 
+                        doi: '10.1002/smll.202204063' 
+                    },
+                    { 
+                        text: 'N-doped graphene anchored ultrasmall Ir nanoparticles as bifunctional electrocatalyst for overall water splitting', 
+                        authors: 'Yao, W.;‡ Jiang, X.;‡ Li, Y.; Zhao, C.; Ding, L.; Sun, D.; Tang, Y.', 
+                        journal: 'Green Energy & Environment', 
+                        doi: '10.1016/j.gee.2021.01.011' 
+                    },
+                    { 
+                        text: 'Reversible Phosphorus-Based Five-Electron Transfer Reaction for Aluminium-Phosphorus Batteries.', 
+                        authors: 'Tonghui Cai‡, Tongge Li‡, Bingyu Li, Yuxiang Hu, Xuejin Li, Tongen Lin, Haoyu Hu, Bin Luo, Yu Zhang, Xiaobo Zhu, Yongpeng Cui, Lianming Zhao, Wei Xing*, Zifeng Yan*, Lianzhou Wang*.', 
+                        journal: 'Energy Storage Materials', 
+                        doi: '10.1016/j.ensm.2022.09.010' 
+                    },
+                    { 
+                        text: 'Polycyclic Aromatic Hydrocarbons as a New Class of Promising Cathode Materials for Aluminum-Ion Batteries.', 
+                        authors: 'Dongqing Kong‡, Tonghui Cai‡, Haodong Fan, Haoyu Hu, Xiaohui Wang, Yongpeng Cui, Dandan Wang, Yesheng Wang, Han Hu, Mingbo Wu, Qingzhong Xue, Zifeng Yan, Xuejin Li*, Lianming Zhao*, and Wei Xing*', 
+                        journal: 'Angewandte Chemie International Edition', 
+                        doi: '10.1002/anie.202114681' 
+                    },
+                    { 
+                        text: 'Multivalent cationic and anionic mixed redox of an Sb2S3 cathode toward high-capacity aluminum ion batteries.', 
+                        authors: 'Tongge Li‡, Tonghui Cai ‡*, Haoyu Hu, Xuejin Li, Dandan Wang, Yu Zhang, Yongpeng Cui, Lianming Zhao, Wei Xing and Zifeng Yan*', 
+                        journal: 'Journal of Materials Chemistry A', 
+                        doi: '10.1039/d2ta02049a' 
+                    },
+                    { 
+                        text: 'Realizing an aqueous sodium-ion battery with a super-high discharge voltage based on a novel FeSe2@rGO anode.', 
+                        authors: 'Xuejin Li‡, Yanxin Shen‡, Dongqing Kong, Haodong Fan, Xiuli Gao, Yongpeng Cui, Tao Jiang, Yanguang Ren, Yu zhang, Tonghui Cai*, Wei Xing* and Zifeng Yan', 
+                        journal: 'Inorganic Chemistry Frontiers', 
+                        doi: '10.1039/D1QI01567B' 
+                    },
+                    { 
+                        text: 'Synergistic Promotion of Single-Atom Co Surrounding a PtCo Alloy Based On a g-C3N4 Nanosheet for Overall Water Splitting', 
+                        authors: 'Bei-Bei Xu,Xiao-Bin Fu,Xiao-Meng You,En Zhao,Fang-Fang Li,Zupeng Chen,Yu-Xiao Li,Xue Lu Wang*,Ye-Feng Yao*', 
+                        journal: 'ACS Catalysis', 
+                        doi: '10.1021/acscatal.2c00751' 
+                    },
+                    { 
+                        text: 'Transfer Hydrogenation with a Carbon-Nitride-Supported Palladium Single-Atom Photocatalyst and Water as a Proton Source', 
+                        authors: 'En Zhao+, Manman Li+, Beibei Xu, Xue-Lu Wang, Yu Jing,* Ding Ma, Sharon Mitchell,Javier Pérez-Ramírez,* and Zupeng Chen*', 
+                        journal: 'Angewandte Chemie-International Edition', 
+                        doi: '10.1002/anie.202207410' 
+                    },
+                    { 
+                        text: 'Monitoring Cr(VI) photoreduction at different depths by operando low-field NMR relaxometry', 
+                        authors: 'Bei-Bei Xu , Jing-Xian Dong , Xue-Lu Wang *, Ye-Feng Yao *', 
+                        journal: 'Magnetic Resonance Letters', 
+                        doi: '10.1016/j.mrl.2022.06.005' 
+                    }
+                ],
+                "2021": [
+                    { 
+                        text: 'Unraveling the lattice matching effect in surface phase junctions for interfacial charge separation.', 
+                        authors: 'Jifa Liu, Fangfang Wang, Xuebing Chen, Rengui Li, Peng Yan, Song Bai, Xia Yang, Jing Zhang', 
+                        journal: 'The Journal of Physical Chemistry C', 
+                        doi: '10.1021/acs.jpcc.1c02830' 
+                    },
+                    { 
+                        text: 'Internal field engineering of WO3 by ion channel migration with enhanced photocatalytic oxygen evolution ability.', 
+                        authors: 'Fang F. Wang, Chang D. Chen, Wei Wang, Ming L. Kang, Ying Gao, Xue B. Chen, Jing Zhang', 
+                        journal: 'Journal of Materials Chemistry A', 
+                        doi: '10.1039/d0ta09759d' 
+                    },
+                    { 
+                        text: 'Cooperative catalysis coupling photo-/photothermal effect to drive Sabatier reaction with unprecedented conversion and selectivity.', 
+                        authors: 'Yong Chen, Yuanming Zhang, Guozheng Fan, Lizhu Song, Gan Jia, Huiting Huang, Shuxin Ouyang, Jinhua Ye, Zhaosheng Li, and Zhigang Zou', 
+                        journal: 'Joule', 
+                        doi: '10.1016/j.joule.2021.11.009' 
+                    },
+                    { 
+                        text: 'Engineering hollow porous platinum-silver double-shelled nanocages for efficient electro-oxidation of methanol.', 
+                        authors: 'Yao, W.;‡ Jiang, X.;‡ Li, M.; Li, Y.; Liu, Y.; Zhan, X.; Fu, G.; Tang, Y.', 
+                        journal: 'Applied Catalysis B: Environment and Energy', 
+                        doi: '10.1016/j.apcatb.2020.119595' 
+                    },
+                    { 
+                        text: 'A rechargeable 6-electron Al–Se battery with high energy density.', 
+                        authors: 'Tong Zhang‡, Tonghui Cai‡*, Wei Xing, Tongge Li, Baoqiang Liang, Haoyu Hu, Lianming Zhao, Xuejin Li, Zifeng Yan*', 
+                        journal: 'Energy Storage Materials', 
+                        doi: '10.1016/j.ensm.2021.06.041' 
+                    },
+                    { 
+                        text: 'Cooperative Motion in Water–Methanol Clusters Controls the Reaction Rates of Heterogeneous Photocatalytic Reactions', 
+                        authors: 'Bei-Bei Xu, Min Zhou, Man Ye, Ling-Yun Yang, Hai-Feng Wang,* Xue Lu Wang,* and Ye-Feng Yao*', 
+                        journal: 'Journal of the American Chemical', 
+                        doi: '10.1021/jacs.1c02128' 
+                    }
+                ],
+                "2020": [
+                    { 
+                        text: 'Constructing of triple sequential junction for efficient separation of photogenerated charges in photocatalysis.', 
+                        authors: 'Chun Li , Xia Yang, Xuebing Chen, Jifa Liu, Jing Zhang, Fangfang Wang, Rengui Li, Yang Qu, Liqiang Jing', 
+                        journal: 'Chem.Commun.', 
+                        doi: '10.1039/c9cc08013a.' 
+                    },
+                    { 
+                        text: 'A heterojunction photocatalyst constructed by the modification of 2D-CeO2 on 2D-MoS2 nanosheets with enhanced degrading activity', 
+                        authors: 'Rong Ji, Zhi Zhu, Wei Ma, Xu Tang, Yang Liu, Pengwei Huo', 
+                        journal: 'Catalysis Science & Technology', 
+                        doi: '10.1039/c9cy02238d' 
+                    },
+                    { 
+                        text: 'Trimetallic Au@PdPb nanowires for oxygen reduction reaction.', 
+                        authors: 'Jiang X.; Xiong , Y.; Zhao R.; Zhou J.; Lee J.-M.; Tang Y.', 
+                        journal: 'Nano Res.', 
+                        doi: '10.1007/s12274-020-2911-9' 
+                    },
+                    { 
+                        text: 'Embedded PdFe@N-carbon nanoframes for oxygen reduction in acidic fuel cells.', 
+                        authors: 'Jiang, X.; Elouarzaki, K.; Tang, Y.; Zhou, J.; Fu, G.; Lee, J.-M.', 
+                        journal: 'Carbon', 
+                        doi: '10.1016/j.carbon.2020.04.013' 
+                    },
+                    { 
+                        text: 'Concave PtCo nanocrosses for methanol oxidation reaction.', 
+                        authors: 'Li, Z.;‡ Jiang, X.;‡ Wang, X.; Hu, J.; Liu, Y.; Fu, G.; Tang, Y.', 
+                        journal: 'Appl. Catal. B: Environ.', 
+                        doi: '10.1016/j.apcatb.2020.119135' 
+                    },
+                    { 
+                        text: 'Membrane protein modified electrodes in bioelectrocatalysis', 
+                        authors: 'Huijie Zhang†, Rosa Catania†, Lars JC Jeuken*.', 
+                        journal: 'Catalysts', 
+                        doi: '10.3390/catal10121427' 
+                    },
+                    { 
+                        text: 'Small graphite nanoflakes as an advanced cathode material for aluminum ion batteries.', 
+                        authors: 'Haoyu Hu‡, Tonghui Cai‡, Peng Bai, Jing Xu, Shihui Ge, Han Hu, Mingbo Wu, Qingzhong Xue, Zifeng Yan, Xiuli Guo*, Wei Xing*.', 
+                        journal: 'Chemical Communications', 
+                        doi: '10.1039/c9cc06895c' 
+                    },
+                    { 
+                        text: 'Layered double hydroxides derived NiCo-sulfide as a cathode material for aluminum ion batteries.', 
+                        authors: 'Wei Xing‡*, Xiaochen Li‡, Tonghui Cai‡, Yu Zhang, Peng Bai, Jing Xu, Han Hu, Mingbo Wu, Qingzhong Xue , Yi Zhao, Jin Zhou, Shuping Zhuo, Xiuli Gao*, Zifeng Yan.', 
+                        journal: 'Electrochimica Acta', 
+                        doi: '10.1016/j.electacta.2020.136174' 
+                    },
+                    { 
+                        text: 'High-performance aqueous sodium-ion battery using hybrid electrolyte with wide electrochemical stability window.', 
+                        authors: 'Yanxin Shen‡*, Xiaonan Han‡, Tonghui Cai‡, Xiaoning Wang, Haoyu Hu, Yanpeng Li, Lianming Zhao, Han Hu, Qingzhong Xue, Yi Zhao, Jin Zhou, Xiuli Gao*.', 
+                        journal: 'RSC advances', 
+                        doi: '10.1039/d0ra04640j' 
+                    },
+                    { 
+                        text: 'Solvent Water Controls Photocatalytic Methanol Reforming', 
+                        authors: 'Bei-Bei Xu,Min Zhou,Ran Zhang,Man Ye,Ling-Yun Yang,Rong Huang,Hai Feng Wang*,Xue Lu Wang*,Ye-Feng Yao*', 
+                        journal: 'The Journal of Physical Chemistry Letters', 
+                        doi: '10.1021/acs.jpclett.0c00972' 
+                    },
+                    { 
+                        text: 'Selective hydrogen–deuterium exchange in graphitic carbon nitrides: probing the active sites for photocatalytic water splitting by solid-state NMR', 
+                        authors: 'Ruidi Wang,‡a   Bei-Bei Xu,‡a   Jiachen Wang,*a   Xue Lu Wang*a  and  Ye-Feng Yao', 
+                        journal: 'Journal of Materials Chemistry A', 
+                        doi: '10.1039/D0TA10148F' 
+                    }
+                ],
+                "2019": [
+                    { 
+                        text: 'Homophase junction for promoting spatial charge separation in photocatalytic water splitting.', 
+                        authors: 'Yu Bai,Yueer Zhou,Jing Zhang,Xuebing Chen,Yonghui Zhang,Jifa Liu,Jian Wang,Fangfang Wang,Changdong C', 
+                        journal: 'ACSCatal.', 
+                        doi: '10.1021/acscatal.8b05050' 
+                    },
+                    { 
+                        text: 'Boosting photocatalytic water splitting by tuning built-in electric field at phase junction.', 
+                        authors: 'Jing Zhang,Xuebing Chen,Yu Bai,Chun Li,Ying Gao,Rengui Li,Can Li', 
+                        journal: 'Journal of Materials Chemistry A', 
+                        doi: '10.1039/c8ta08199a' 
+                    },
+                    { 
+                        text: 'In-situ fabrication of atomic charge transferring path for constructing heterojunctionLi photocatalysis with hierarchical structure.', 
+                        authors: 'Dongxu Liu,Jing Zhang,Chun Li,Xun Zhang,Xuebing Chen,Fangfang Wang,Ming Shi,Rengui Li,Can Li', 
+                        journal: 'Applied Catalysis B: Environment and Energy', 
+                        doi: '10.1016/j.apcatb.2019.02.050' 
+                    },
+                    { 
+                        text: 'Heterojunction photocatalyst fabricated by deposition Co3O4 nanoparticles on MoS2 nanosheets with enhancing photocatalytic performance and mechanism insight', 
+                        authors: 'Rong Ji, Menghan Zhang, Wei Ma, Zhi Zhu, Changchang Ma, Pengwei Huo, Yongsheng Yan, Yang liu, Chunxiang Li, ', 
+                        journal: 'Journal of the Taiwan Institute of Chemical Engineers', 
+                        doi: '10.1016/j.jtice.2019.01.011' 
+                    },
+                    { 
+                        text: 'Z-scheme MoS2/Bi2O3 heterojunctions: enhanced photocatalytic degradation performance and mechanistic insight', 
+                        authors: 'Rong Ji, Changchang Ma, Wei Ma, Yang Liu, Zhi Zhu, Yongsheng Yan,', 
+                        journal: 'New Journal of Chemistry', 
+                        doi: '10.1039/c9nj02521a' 
+                    },
+                    { 
+                        text: 'Treelike two-level PdxAgy nanocrystals tailored for bifunctional fuel cell electrocatalysis.', 
+                        authors: 'Jiang X.; Xiong Y.; Wang Y.; Wang J.; Li N.; Zhou J.; Fu G.; Sun D.; Tang Y.', 
+                        journal: 'Journal of Materials Chemistry A', 
+                        doi: '10.1039/c8ta11538a' 
+                    },
+                    { 
+                        text: 'Sub-5 nm palladium nanoparticles in situ embedded in N-doped carbon nanoframes: facile synthesis, excellent sinter resistance and electrocatalytic properties.', 
+                        authors: 'Jiang X.; Wang J.; Huang T.; Fu G.; Tang Y.; Qiu X.; Zhou J.; Lee J.-M.', 
+                        journal: 'Journal of Materials Chemistry A', 
+                        doi: '10.1039/c9ta11097f' 
+                    },
+                    { 
+                        text: '1-Naphthol induced Pt3Ag nanocorals as bifunctional cathode and anode catalysts of direct formic acid fuel cells.', 
+                        authors: 'Jiang X.;‡ Liu Y.;‡ Wang J.; Wang Y.; Xiong Y.; Liu Q.; Li N.; Zhou J.; Fu G.; Sun D.; Tang Y.', 
+                        journal: 'Nano Research', 
+                        doi: '10.1007/s12274-018-2218-2' 
+                    },
+                    { 
+                        text: 'Cu5Pt dodecahedra with low-Pt content: facile synthesis and outstanding formic acid electrooxidation.', 
+                        authors: 'Wang, Y.;‡ Jiang, X.;‡ Fu, G.; Li, Y.; Tang, Y.; Lee, J.-M.; Tang, Y.', 
+                        journal: 'ACS Applied Materials & Interfaces', 
+                        doi: '10.1021/acsami.9b09153' 
+                    },
+                    { 
+                        text: 'Probing the methanol heterogeneous photochemistry processes by operando NMR – The role of bulk water', 
+                        authors: 'Man Ye , Bei-Bei Xu , Ran Zhang , Yi-Ning Yang , Ling-Yun Yang , Xue Lu Wang , Ye-Feng Yao', 
+                        journal: 'Journal of Catalysis', 
+                        doi: '10.1016/j.jcat.2019.08.016' 
+                    }
+                ],
+                "2018": [
+                    { 
+                        text: 'K2SO4-Assisted Hexagonal/Monoclinic WO3 Phase Junction for Efficient Photocatalytic Degradation of RhB.', 
+                        authors: 'Yao Lu , Jing Zhang , Fangfang Wang , Xuebing Chen , Zhaochi Feng , Can Li ', 
+                        journal: 'ACS Applied Energy Materials ', 
+                        doi: '10.1021/acsaem.8b00168' 
+                    },
+                    { 
+                        text: 'Highly simple and rapid synthesis of ultrathin gold nanowires with (111)-dominant facets and enhanced electrocatalytic properties.', 
+                        authors: 'Jiang X.; Qiu X.; Fu G.; Sun J.; Huang Z.; Sun D.; Xu L.; Zhou J.; Tang Y.', 
+                        journal: 'Journal of Materials Chemistry A', 
+                        doi: '10.1039/c8ta06676k' 
+                    },
+                    { 
+                        text: 'Ultrathin AgPt alloy nanowires as a high-performance electrocatalyst for formic acid oxidation.', 
+                        authors: 'Jiang X.; Fu G.; Wu X.; Liu Y., Zhang M.; Sun D.; Xu L. Tang Y.', 
+                        journal: 'Nano Research', 
+                        doi: '10.1007/s12274-017-1658-4' 
+                    },
+                    { 
+                        text: 'General strategy for synthesis of Pd3M (M= Co and Ni) nanoassemblies as high-performance catalysts for electrochemical oxygen reduction.', 
+                        authors: 'Chen, Y.;‡ Jiang, X.;‡ Li, Y.; Li, P.; Liu, Q.; Fu, G.; Xu, L.; Sun, D.; Tang, Y.', 
+                        journal: 'Advanced Materials Interfaces ', 
+                        doi: '10.1002/admi.201701015' 
+                    },
+                    { 
+                        text: 'Robust bifunctional oxygen electrocatalyst with a “rigid and flexible” structure for air-cathodes.', 
+                        authors: 'Fu, G.;‡ Jiang, X.;‡ Chen, Y.; Xu, L.; Sun, D.; Lee, J.-M.; Tang, Y.', 
+                        journal: 'NPG Asia Materials ', 
+                        doi: '10.1038/s41427-018-0057-y' 
+                    },
+                    { 
+                        text: 'Stable CoSe2/carbon nanodice@ reduced graphene oxide composites for high-performance rechargeable aluminum-ion batteries.', 
+                        authors: 'Tonghui Cai, Lianming Zhao, Haoyu Hu, Tongge Li, Xiaochen Li, Sheng Guo, Yanpeng Li, Qingzhong Xue, Wei Xing*, Zifeng Yan*, Lianzhou Wang.', 
+                        journal: 'Energy & Environmental Science', 
+                        doi: '10.1039/c8ee00822a' 
+                    }
+                ],
+                "2017": [
+                    { 
+                        text: 'Two-dimensional nanomaterials for photocatalytic CO2 reduction to solar fuels.', 
+                        authors: 'Yong Chen, Gan Jia, Yingfei Hu, Guozheng Fan, Yuen Hong Tsang, Zhaosheng Li and Zhigang Zou', 
+                        journal: 'Sustainable Energy & Fuels', 
+                        doi: '10.1039/c7se00344g' 
+                    },
+                    { 
+                        text: 'High-Density Droplet Microarray of Individually Addressable Electrochemical Cells.', 
+                        authors: 'Huijie Zhang, Tobias Oellers, Wenqian Feng, Tarik Abdulazim, En Ning Saw, Alfred Ludwig, Pavel A. Levkin* and Nicolas Plumeré*.', 
+                        journal: 'Analytical Chemistry', 
+                        doi: '10.1021/acs.analchem.7b00008' 
+                    }
+                ],
+                "2016": [
+                    { 
+                        text: 'A combined experimental and computational study of the mechanism of fructose dehydration to 5-hydroxymethylfurfural in dimethylsulfoxide using Amberlyst 70, PO43-/niobic acid, or sulfuric acid catalysts.', 
+                        authors: 'Jing Zhang, Anirban Das, Rajeev S. Assary, Larry A. Curtiss, Eric Weitz', 
+                        journal: 'Applied Catalysis B: Environment and Energy', 
+                        doi: '10.1016/j.apcatb.2014.10.056' 
+                    },
+                    { 
+                        text: 'Fabrication of a monoclinic/hexagonal junction in WO3 and its enhanced photocatalytic degradation of rhodamine B.', 
+                        authors: 'Yuanyuan Lu, Guo Liu, Jing Zhang, Zhaochi Feng, Can Li, Zhi Li', 
+                        journal: 'Chinese Journal of Catalysis ', 
+                        doi: '10.1016/s1872-2067(15)61023-3' 
+                    },
+                    { 
+                        text: 'Shape-controlled hydrothermal synthesis of superhydrophobic and superoleophilic BaMnF4 micro/nanostructures.', 
+                        authors: 'Yong Chen, Feng Li, Taohai Li and Wei Cao', 
+                        journal: 'CrystEngComm', 
+                        doi: '10.1039/c5ce02502h' 
+                    },
+                    { 
+                        text: 'Porous AgPt@Pt nanooctahedra as an efficient catalyst toward formic acid oxidation with predominant dehydrogenation pathway.', 
+                        authors: 'Jiang X.; Yan X.; Ren W.; Jia Y.; Chen J.; Sun D.; Xu L. Tang Y.', 
+                        journal: 'ACS Applied Materials & Interfaces ', 
+                        doi: '10.1021/acsami.6b11895' 
+                    }
+                ],
+                "2015": [
+                    { 
+                        text: 'Preparation of recyclable CdS photocatalytic and superhydrophobic films with photostability by using a screen-printing technique.', 
+                        authors: 'Yong Chen, Feng Li, Wei Cao and Taohai Li', 
+                        journal: 'Journal of Materials Chemistry A', 
+                        doi: '10.1039/c5ta04065e' 
+                    },
+                    { 
+                        text: 'A facile hydrothermal process to synthesize Ba12F19Cl5 with different morphology and their superhydrophobic property.', 
+                        authors: 'Yong Chen, Gaoyu Ou, Feng Li and Taohai Li', 
+                        journal: 'Journal of Fluorine Chemistry', 
+                        doi: '10.1016/j.jfluchem.2015.04.005' 
+                    },
+                    { 
+                        text: 'Removal of rhodamine B and Cr(VI) from aqueous solutions by a polyoxometalate adsorbent.', 
+                        authors: 'Feng Li, Yong Chen, Haimei Huang, Wei Cao and Taohai Li', 
+                        journal: 'Chemical Engineering Research and Design', 
+                        doi: '10.1016/j.cherd.2015.05.030' 
+                    },
+                    { 
+                        text: 'Superhigh-rate capacitive performance of heteroatoms-doped double shell hollow carbon spheres.', 
+                        authors: 'Tonghui Cai, Wei Xing*, Zhen Liu, Jingbin Zeng, Qingzhong Xue, Shizhang Qiao, Zifeng Yan*.', 
+                        journal: 'Carbon', 
+                        doi: '10.1016/j.carbon.2015.01.032' 
+                    }
+                ],
+                "2014": [
+                    { 
+                        text: 'Arginine-Assisted Synthesis and Catalytic Properties of Single-Crystalline Palladium Tetrapods.', 
+                        authors: 'Fu, G.;‡ Jiang, X.;‡ Wu, R.; Wei, S.; Sun, D.; Tang, Y.; Lu, T.; Chen, Y.', 
+                        journal: 'ACS Applied Materials & Interfaces', 
+                        doi: '10.1021/am506965f' 
+                    }
+                ],
+                "2013": [
+                    { 
+                        text: 'Synthesis of hierarchically ordered egg-tray-like macroporous TiO2–SiO2 nanocomposites with ordered mesoporous walls.', 
+                        authors: 'Tonghui Cai, Youhe Wang*, Yan Dong, Xiang Li, Zhen Liu, Zifeng Yan*.', 
+                        journal: 'Materials Letters', 
+                        doi: '10.1016/j.matlet.2013.08.074' 
+                    }
+                ],
+                "2012": [
+                    { 
+                        text: 'An in Situ NMR Study of the Mechanism for the Catalytic Conversion of Fructose to 5-Hydroxymethylfurfural and then to Levulinic Acid Using 13C Labeled d-Fructose.', 
+                        authors: 'Jing Zhang,Eric Weitz', 
+                        journal: 'ACS Catalysis', 
+                        doi: '10.1021/cs300045r' 
+                    }
+                ],
+                "2011": [
+                    { 
+                        text: 'Photocatalytic Degradation of Rhodamine B on Anatase, Rutile, and Brookite TiO2.', 
+                        authors: 'Jing ZHANG, Song YAN, Lu FU, Fei WANG, Mengqiong YUAN, Genxiang LUO, Qian XU, Xiang WANG, Can LI', 
+                        journal: 'Chinese Journal of Catalysis', 
+                        doi: '10.1016/s1872-2067(10)60222-7' 
+                    }
+                ],
+                "2008": [
+                    { 
+                        text: 'Importance of the relationship between surface phases and photocatalytic activity of TiO2.', 
+                        authors: 'Jing Zhang,Qian Xu,Zhaochi Feng,Meijun Li,Can Li', 
+                        journal: 'Angewandte Chemie International Edition', 
+                        doi: '10.1002/anie.200704788' 
+                    }
+                ],
+                "2006": [
+                    { 
+                        text: 'UV Raman spectroscopic study on TiO2. I. Phase transformation at the surface and in the bulk.', 
+                        authors: 'Jing Zhang,Meijun Li,Zhaochi Feng,Jun Chen,Can Li', 
+                        journal: 'The Journal of Physical Chemistry B', 
+                        doi: '10.1021/jp0552473' 
+                    }
                 ]
             }
         };
@@ -372,13 +1169,187 @@
             }
         }
 
+        // Modified Render Function for Leader
+        function renderLeader() {
+            const leader = siteData.leader;
+            return `
+            <div id="leader" class="page-content">
+                <div class="section-title mb-8"><h2>组长简介<span class="en">Principal Investigator</span></h2></div>
+                
+                <div class="bg-white p-6 md:p-10 rounded shadow-md border border-gray-200">
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <!-- Left Column: Image & Contact & Bio -->
+                        <div class="md:w-1/3 flex flex-col items-center text-center">
+                            <div class="w-48 h-56 md:w-56 md:h-72 bg-gray-100 rounded-lg overflow-hidden shadow-lg mb-6 border-4" style="border-color: var(--theme-bg-light);">
+                                <img src="${leader.image}" alt="${leader.name}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/e2e8f0/64748b?text=Portrait'">
+                            </div>
+                            <div class="w-full text-left space-y-3 px-4 mb-6">
+                                <p class="flex items-center gap-3 text-gray-700">
+                                    <i class="fas fa-envelope w-5 text-center" style="color: var(--theme-color);"></i>
+                                    <a href="mailto:${leader.email}" class="hover:text-teal-600 truncate text-sm">${leader.email}</a>
+                                </p>
+                                <!-- 新增个人网站 -->
+                                <p class="flex items-center gap-3 text-gray-700">
+                                    <i class="fas fa-globe w-5 text-center" style="color: var(--theme-color);"></i>
+                                    <a href="https://xny.njust.edu.cn/57/2b/c15478a349995/page.htm" target="_blank" class="hover:text-teal-600 truncate text-sm">个人主页</a>
+                                </p>
+                                <p class="flex items-center gap-3 text-gray-700">
+                                    <i class="fas fa-phone w-5 text-center" style="color: var(--theme-color);"></i>
+                                    <span class="text-sm">${leader.phone}</span>
+                                </p>
+                                <p class="flex items-start gap-3 text-gray-700">
+                                    <i class="fas fa-map-marker-alt w-5 text-center mt-1" style="color: var(--theme-color);"></i>
+                                    <span class="text-sm">${leader.office}</span>
+                                </p>
+                            </div>
+
+                            <!-- Social Links (Placeholder) -->
+                            <div class="flex gap-4 mb-6">
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-teal-50 hover:text-teal-600 transition text-gray-500" title="ResearchGate">
+                                    <i class="fab fa-researchgate text-xl"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-teal-50 hover:text-teal-600 transition text-gray-500" title="Google Scholar">
+                                    <i class="fas fa-graduation-cap text-xl"></i>
+                                </a>
+                            </div>
+
+                            <!-- 移动过来的个人简介 -->
+                            <div class="w-full text-left px-4 pt-4 border-t border-gray-100">
+                                <h3 class="font-bold text-gray-800 mb-2 flex items-center gap-2">
+                                    <i class="fas fa-user-tie" style="color: var(--theme-color);"></i> 个人简介
+                                </h3>
+                                <p class="text-sm text-gray-600 text-justify leading-relaxed">${leader.bio}</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Details (Removed Bio and Research Interests) -->
+                        <div class="md:w-2/3">
+                            <div class="mb-6 border-b pb-4">
+                                <h2 class="text-3xl font-bold text-gray-900 mb-2">${leader.name}</h2>
+                                <p class="text-xl font-medium" style="color: var(--theme-color);">${leader.title}</p>
+                            </div>
+
+                            <div class="space-y-6 text-gray-700 leading-relaxed">
+                                
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div>
+                                        <h3 class="profile-section-title"><i class="fas fa-graduation-cap mr-2"></i>教育经历</h3>
+                                        <ul class="space-y-2">
+                                            ${leader.education.map(edu => `
+                                                <li class="border-l-2 pl-3 pb-2 border-gray-200">
+                                                    ${edu}
+                                                </li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h3 class="profile-section-title"><i class="fas fa-briefcase mr-2"></i>工作经历</h3>
+                                        <ul class="space-y-2">
+                                            ${leader.workExperience.map(exp => `
+                                                <li class="border-l-2 pl-3 pb-2 border-gray-200">
+                                                    ${exp}
+                                                </li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 class="profile-section-title"><i class="fas fa-flask mr-2"></i>科研项目</h3>
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
+                                        ${leader.projects.map(proj => `
+                                            <li class="profile-list-item text-sm">
+                                                ${proj}
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h3 class="profile-section-title"><i class="fas fa-users mr-2"></i>学术兼职</h3>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <h4 class="font-bold text-gray-800 text-sm mb-1">委员：</h4>
+                                            <ul class="space-y-1">
+                                                ${leader.academicAppointments.committees.map(item => `
+                                                    <li class="profile-list-item text-sm text-gray-600">${item}</li>
+                                                `).join('')}
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-800 text-sm mb-1">学报编委：</h4>
+                                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-1">
+                                                ${leader.academicAppointments.editorialBoards.map(item => `
+                                                    <li class="profile-list-item text-sm text-gray-600">${item}</li>
+                                                `).join('')}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 class="profile-section-title"><i class="fas fa-medal mr-2"></i>荣誉奖励</h3>
+                                    <ul class="space-y-2">
+                                        ${leader.awards.map(award => `
+                                            <li class="flex items-start gap-2 text-sm">
+                                                <i class="fas fa-award mt-1 flex-shrink-0" style="color: #F59E0B;"></i>
+                                                <span>${award}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
+        // 新增：渲染学术动态详情页的函数
+        function renderAcademicArticle(articleId) {
+            const article = siteData.academicArticles.find(a => a.id === articleId);
+            if (!article) return '<div class="text-center py-10">文章未找到</div>';
+
+            return `
+            <div class="page-content">
+                <div class="section-title mb-6 flex justify-between items-center">
+                    <h2>学术动态<span class="en">Article Detail</span></h2>
+                    <button onclick="renderPage('home')" class="text-sm text-teal-600 hover:text-teal-800">
+                        <i class="fas fa-arrow-left mr-1"></i> 返回首页
+                    </button>
+                </div>
+                <div class="bg-white p-8 rounded shadow-sm border border-gray-200">
+                    <h1 class="text-2xl font-bold text-gray-900 mb-2 leading-tight">${article.title}</h1>
+                    <div class="text-sm text-gray-500 mb-6 border-b pb-4 flex gap-4">
+                        <span><i class="far fa-calendar-alt mr-1"></i> ${article.date}</span>
+                        <span class="font-semibold text-teal-600"><i class="fas fa-book-open mr-1"></i> ${article.journal}</span>
+                    </div>
+                    
+                    <div class="article-content text-gray-700 leading-relaxed">
+                        ${article.content}
+                    </div>
+                    
+                    <div class="mt-8 pt-6 border-t border-gray-100 flex justify-center">
+                        <button onclick="renderPage('home')" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition">
+                            关闭阅读
+                        </button>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
         function renderHome() {
+            // 只显示前5篇
+            const displayArticles = siteData.academicArticles.slice(0, 5);
+            
             return `
             <div id="home" class="page-content">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
                     <!-- Carousel -->
                     <div class="lg:col-span-8 relative group h-64 md:h-[400px] overflow-hidden bg-gray-200 border border-gray-300 shadow-sm rounded-sm">
-                        <img id="carousel-img" src="${siteData.home.sliderImages[0].src}" class="w-full h-full object-cover transition-opacity duration-500">
+                        <img id="carousel-img" src="${siteData.home.sliderImages[0].src}" class="w-full h-full object-cover transition-opacity duration-500" onerror="this.src='https://placehold.co/800x400/e2e8f0/64748b?text=News+Image'">
                         <div class="carousel-caption absolute bottom-0 left-0 w-full p-3 text-white">
                             <p id="carousel-text" class="text-lg font-semibold truncate">${siteData.home.sliderImages[0].text}</p>
                         </div>
@@ -387,16 +1358,16 @@
                             <button onclick="nextSlide()" class="pointer-events-auto bg-black/30 hover:bg-black/50 text-white p-3 rounded-full"><i class="fas fa-chevron-right"></i></button>
                         </div>
                     </div>
-                    <!-- Academic News -->
-                    <div class="lg:col-span-4 bg-theme-light p-4 border border-gray-200 rounded-sm">
+                    <!-- Academic News (Updated to link to full articles) -->
+                    <div class="lg:col-span-4 bg-theme-light p-4 border border-gray-200 rounded-sm flex flex-col">
                         <div class="section-title">
                             <h2>学术动态<span class="en">Research News</span></h2>
                             <span class="more" onclick="renderPage('news')" title="查看更多学术动态">» 更多</span>
                         </div>
-                        <ul class="space-y-3 right-arrow-list text-sm text-gray-800 mt-2">
-                            ${siteData.academicNews.map(news => `
-                                <li class="flex items-start gap-2 hover:text-teal-700 cursor-pointer" onclick="renderPage('news')">
-                                    <span class="line-clamp-2">${news.content}</span>
+                        <ul class="space-y-3 right-arrow-list text-sm text-gray-800 mt-2 flex-grow overflow-y-auto max-h-[300px]">
+                            ${displayArticles.map(article => `
+                                <li class="flex items-start gap-2 hover:text-teal-700 cursor-pointer" onclick="renderPage('article', ${article.id})">
+                                    <span class="line-clamp-2">${article.title}</span>
                                 </li>
                             `).join('')}
                         </ul>
@@ -462,7 +1433,7 @@
                     ${siteData.research.map(item => `
                         <div class="flex flex-col md:flex-row gap-6 bg-white p-4 rounded shadow-sm border border-gray-100">
                             <div class="md:w-1/3">
-                                <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover rounded">
+                                <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover rounded" onerror="this.src='https://placehold.co/400x300/e2e8f0/64748b?text=Research'">
                             </div>
                             <div class="md:w-2/3">
                                 <h3 class="text-xl font-bold mb-2" style="color: var(--theme-color);">${item.title}</h3>
@@ -504,7 +1475,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                     ${siteData.people.faculty.map(p => `
                         <div class="bg-white p-6 rounded shadow-sm flex flex-col sm:flex-row items-start gap-4 border border-gray-100 hover:shadow-md transition">
-                            <img src="${p.image}" class="w-24 h-24 rounded-full object-cover border-2 flex-shrink-0 mx-auto sm:mx-0" style="border-color: var(--theme-bg-light);">
+                            <img src="${p.image}" class="w-24 h-24 rounded-full object-cover border-2 flex-shrink-0 mx-auto sm:mx-0" style="border-color: var(--theme-bg-light);" onerror="this.src='https://placehold.co/150x150/e2e8f0/64748b?text=User'">
                             <div class="text-center sm:text-left">
                                 <h4 class="font-bold text-gray-900 text-lg">${p.name} <span class="text-sm font-normal ml-2" style="color: var(--theme-light);">${p.title}</span></h4>
                                 <p class="text-sm text-gray-600 mt-2 text-justify leading-relaxed">${p.description}</p>
@@ -531,7 +1502,7 @@
                     ${siteData.equipment.map(eq => `
                         <div class="bg-white p-4 rounded border border-gray-200 text-center transition hover:shadow-lg flex flex-col items-center" style="hover:border-color: var(--theme-light);">
                             <div class="w-full h-40 bg-gray-100 mb-3 rounded overflow-hidden flex items-center justify-center">
-                                <img src="${eq.image}" alt="${eq.name}" class="w-full h-full object-cover">
+                                <img src="${eq.image}" alt="${eq.name}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x300/e2e8f0/64748b?text=Equip'">
                             </div>
                             <h4 class="text-sm font-bold text-gray-800 mb-1">${eq.name}</h4>
                             <p class="text-xs text-gray-500 line-clamp-3" title="${eq.description}">${eq.description}</p>
@@ -550,11 +1521,20 @@
                     ${years.map(year => `
                         <div>
                             <h3 class="text-xl font-bold mb-3 border-b pb-1" style="color: var(--theme-dark); border-color: var(--theme-bg-light);">${year}</h3>
-                            <ul class="space-y-3 list-decimal list-inside text-gray-700 text-sm">
+                            <ul class="space-y-4 list-decimal list-inside text-gray-700 text-sm">
                                 ${siteData.publications[year].map(pub => `
-                                    <li class="pl-2">
-                                        <span class="font-medium text-gray-900">${pub.text}</span> 
-                                        <span class="italic block md:inline md:ml-2" style="color: var(--theme-light);"> - ${pub.journal}</span>
+                                    <li class="pl-2 border-b border-dashed border-gray-200 pb-3 last:border-0">
+                                        <div class="inline-block align-top w-full">
+                                            <div class="font-medium text-gray-900 text-base leading-snug">${pub.text}</div>
+                                            ${pub.authors ? `<div class="text-sm text-gray-600 mt-1"><strong>Authors:</strong> ${pub.authors}</div>` : ''}
+                                            <div class="text-sm mt-1 flex flex-wrap gap-x-3 items-center">
+                                                <span class="italic text-teal-600 font-semibold">${pub.journal}</span>
+                                                ${pub.doi ? `
+                                                    <span class="mx-2 text-gray-300 hidden md:inline">|</span>
+                                                    <a href="https://doi.org/${pub.doi}" target="_blank" class="text-xs text-gray-500 hover:text-teal-600 underline flex items-center mt-1 md:mt-0"><i class="fas fa-external-link-alt mr-1"></i>DOI: ${pub.doi}</a>
+                                                ` : ''}
+                                            </div>
+                                        </div>
                                     </li>
                                 `).join('')}
                             </ul>
@@ -611,9 +1591,10 @@
                 <div class="mb-8">
                     <h3 class="text-lg font-bold text-gray-800 mb-3 border-l-4 border-purple-600 pl-3">学术动态</h3>
                     <div class="space-y-4">
-                         ${siteData.academicNews.map(item => `
-                            <div class="bg-white p-4 rounded border-l-4 border-purple-500 shadow-sm flex flex-col md:flex-row md:items-center justify-between">
-                                <span class="text-gray-800 font-medium">${item.content}</span>
+                         ${siteData.academicArticles.map(item => `
+                            <div class="bg-white p-4 rounded border-l-4 border-purple-500 shadow-sm flex flex-col md:flex-row md:items-center justify-between cursor-pointer hover:bg-gray-50" onclick="renderPage('article', ${item.id})">
+                                <span class="text-gray-800 font-medium">${item.title}</span>
+                                <span class="text-xs text-purple-600 border border-purple-200 px-2 py-0.5 rounded mt-2 md:mt-0">详情</span>
                             </div>
                         `).join('')}
                     </div>
@@ -632,22 +1613,27 @@
             </div>`;
         }
 
-        function renderPage(pageId) {
+        function renderPage(pageId, param) {
             const contentDiv = document.getElementById('main-content');
             
-            updateNavState(pageId);
+            // 如果不是详情页，更新导航状态
+            if (pageId !== 'article') {
+                updateNavState(pageId);
+            }
             
             contentDiv.innerHTML = '';
             
             let htmlContent = '';
             switch(pageId) {
                 case 'home': htmlContent = renderHome(); break;
+                case 'leader': htmlContent = renderLeader(); break;
                 case 'research': htmlContent = renderResearch(); break;
                 case 'people': htmlContent = renderPeople(); break;
                 case 'equipment': htmlContent = renderEquipment(); break;
                 case 'publications': htmlContent = renderPublications(); break;
                 case 'contact': htmlContent = renderContact(); break;
                 case 'news': htmlContent = renderNewsPage(); break;
+                case 'article': htmlContent = renderAcademicArticle(param); break; // 处理文章详情页
                 default: htmlContent = '<div class="text-center py-10 text-gray-500">页面建设中...</div>';
             }
             
